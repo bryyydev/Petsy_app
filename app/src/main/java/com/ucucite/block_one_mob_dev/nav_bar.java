@@ -25,6 +25,8 @@ public class nav_bar extends AppCompatActivity {
                     .replace(R.id.fragment_container, new Home_Fragment())
                     .commit();
         }
+        bottomNavigationView.setItemIconTintList(null);
+
 
         // Handle navigation item clicks
         bottomNavigationView.setOnItemSelectedListener(item -> {
