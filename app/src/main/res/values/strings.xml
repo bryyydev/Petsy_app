@@ -1,0 +1,22 @@
+<resources>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="get_started">Get Started</string>
+    <string name="app_name">Petsy</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="email">Email</string>
+    <string name="email_placeholder">yourname@gmail.com</string>
+    <string name="password">Password</string>
+    <string name="password_placeholder">your password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login">Log In</string>
+    <string name="or_separator">- OR -</string>
+    <string name="login_google">Log in with Google</string>
+    <string name="login_facebook">Log in with Facebook</string>
+    <string name="no_account">Not have an Account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="logo_description">Petsy Logo</string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

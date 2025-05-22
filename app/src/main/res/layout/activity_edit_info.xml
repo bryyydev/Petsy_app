@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sign_up_bg"
+    tools:context=".Edit_Info">
+
+    <!-- Petsy Logo -->
+    <ImageView
+        android:id="@+id/petsy_logo"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/logo_petsy"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.05" />
+
+    <!-- Main Form Section -->
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical"
+        android:paddingTop="80dp"
+        android:padding="16dp"
+        android:background="@drawable/white_bg_two"
+        app:layout_constraintTop_toBottomOf="@id/petsy_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/tv_edit_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="35dp"
+            android:text="Edit your Information"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/firstName"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edittext_white"
+            android:drawableStart="@drawable/ic_user"
+            android:drawablePadding="10dp"
+            android:hint="First Name"
+            android:inputType="text"
+            android:paddingStart="10dp" />
+
+        <EditText
+            android:id="@+id/lastName"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edittext_white"
+            android:drawableStart="@drawable/ic_user"
+            android:drawablePadding="10dp"
+            android:hint="Last Name"
+            android:inputType="text"
+            android:paddingStart="10dp" />
+
+        <EditText
+            android:id="@+id/phoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edittext_white"
+            android:drawableStart="@drawable/icon_phone"
+            android:drawablePadding="10dp"
+            android:hint="Enter your cellphone number"
+            android:inputType="phone"
+            android:paddingStart="10dp" />
+
+        <!-- Spinner for Province -->
+        <Spinner
+            android:id="@+id/spinnerProvince"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edittext_white"
+            android:drawablePadding="10dp"
+            android:hint="Choose your Province"
+            android:paddingStart="10dp" />
+
+        <!-- Spinner for Town -->
+        <Spinner
+            android:id="@+id/spinnerTown"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edittext_white"
+            android:drawablePadding="10dp"
+            android:hint="Choose your Town"
+            android:paddingStart="10dp" />
+
+        <!-- Spinner for Barangay -->
+        <Spinner
+            android:id="@+id/spinnerBarangay"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edittext_white"
+            android:drawablePadding="10dp"
+            android:hint="Choose your Barangay"
+            android:paddingStart="10dp" />
+
+        <EditText
+            android:id="@+id/houseStreet"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edittext_white"
+            android:drawableStart="@drawable/icon_address"
+            android:drawablePadding="10dp"
+            android:hint="Enter your house no.and street"
+            android:inputType="text"
+            android:paddingStart="10dp" />
+
+        <Button
+            android:id="@+id/createAccountBtn"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/green_button_bg"
+            android:text="Create Account"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <!-- Profile Image with Edit Icon (on top of the form) -->
+    <FrameLayout
+        android:id="@+id/profile_container"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="-40dp"
+        android:translationZ="10dp"
+        app:layout_constraintBottom_toTopOf="@id/linearLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Circular Profile Image -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_pf"
+            app:shapeAppearanceOverlay="@style/CircleImage" />
+
+        <!-- Pencil Edit Icon -->
+        <ImageView
+            android:id="@+id/edit_icon"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="end|top"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="2dp"
+            android:background="@drawable/ic_editing"
+            android:contentDescription="Edit Profile Picture" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

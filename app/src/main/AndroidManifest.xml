@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.BlockOneMobDev"
+        tools:targetApi="31">
+        <activity
+            android:name=".Edit_Address"
+            android:exported="false" />
+        <activity
+            android:name=".Shipping_Address"
+            android:exported="false" />
+        <activity
+            android:name=".nav_bar"
+            android:exported="true" />
+        <activity
+            android:name=".Swipe"
+            android:exported="false" />
+        <activity
+            android:name=".obs_three"
+            android:exported="false" />
+        <activity
+            android:name=".obs_two"
+            android:exported="false" />
+        <activity
+            android:name=".obs_one"
+            android:exported="false" />
+        <activity
+            android:name=".Profile_Fragment"
+            android:exported="false" />
+        <activity
+            android:name=".Edit_Info"
+            android:exported="true" />
+        <activity
+            android:name=".Sign_up"
+            android:exported="true" />
+        <activity
+            android:name=".Log_in"
+            android:exported="true" /> <!-- SplashScreen should be exported if it's the entry point -->
+        <activity
+            android:name=".Splashscreen_first"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MyPagerAdapter"
+            android:exported="false" /> <!-- SplashScreen pages, possibly not used, set according to need -->
+        <activity
+            android:name=".Splashscreen_second"
+            android:exported="false" />
+        <activity
+            android:name=".Splashscreen_third"
+            android:exported="false" /> <!-- MainActivity should be exported if it is an entry point (if needed) -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+    </application>
+
+</manifest>
