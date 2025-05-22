@@ -13,6 +13,9 @@
         android:theme="@style/Theme.BlockOneMobDev"
         tools:targetApi="31">
         <activity
+            android:name=".test_bry"
+            android:exported="false" />
+        <activity
             android:name=".Edit_Address"
             android:exported="false" />
         <activity
