@@ -80,7 +80,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_delete"
-            app:tint="#4CAF50"
+            app:tint="#E90004"
             android:contentDescription="Edit"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/edit_icon"/>

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="22dp"
-    tools:context=".Shipping_Address">
+    tools:context=".Edit_Address">
 
     <!-- Back Arrow -->
     <ImageView

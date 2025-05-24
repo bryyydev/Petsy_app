@@ -1,8 +1,7 @@
 package com.ucucite.block_one_mob_dev;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Edit_Address extends AppCompatActivity {
 
