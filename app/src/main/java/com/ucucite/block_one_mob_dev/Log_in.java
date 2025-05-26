@@ -2,15 +2,18 @@ package com.ucucite.block_one_mob_dev;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ImageView;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Log_in extends AppCompatActivity {
+
+    private static final String TAG = "Log_in";
 
     private EditText etEmail, etPassword;
     private Button btnLogin, btnGoogle, btnFacebook, btnSignUp;
@@ -18,10 +21,16 @@ public class Log_in extends AppCompatActivity {
     private ImageView ivTogglePassword;
     private boolean isPasswordVisible = false;
 
+    // Database helper instance
+    private DatabaseHelper databaseHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
+
+        // Initialize database helper
+        databaseHelper = new DatabaseHelper(this);
 
         // Initialize Views
         etEmail = findViewById(R.id.editText_gmail);
@@ -35,21 +44,7 @@ public class Log_in extends AppCompatActivity {
 
         // Login Button Click Event
         btnLogin.setOnClickListener(v -> {
-            String email = etEmail.getText().toString().trim();
-            String password = etPassword.getText().toString().trim();
-
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(Log_in.this, "Please enter email and password!", Toast.LENGTH_SHORT).show();
-            } else {
-                // You can add your own login validation logic here (e.g. check DB, API etc.)
-                Toast.makeText(Log_in.this, "Logging in...", Toast.LENGTH_SHORT).show();
-
-                // ✅ Navigate to nav_bar activity passing the email
-                Intent intent = new Intent(Log_in.this, nav_bar.class);
-                intent.putExtra("EMAIL", email);
-                startActivity(intent);
-                finish(); // Optional: close the login screen
-            }
+            performLogin();
         });
 
         // Google Login Click
@@ -64,28 +59,196 @@ public class Log_in extends AppCompatActivity {
 
         // Forgot Password Click
         tvForgotPassword.setOnClickListener(v -> {
-            Toast.makeText(Log_in.this, "Forgot Password Clicked!", Toast.LENGTH_SHORT).show();
+            handleForgotPassword();
         });
 
         // Sign Up Click
         btnSignUp.setOnClickListener(v -> {
-            Intent intent1 = new Intent(this, Sign_up.class);
-            startActivity(intent1);
+            Intent intent = new Intent(this, Sign_up.class);
+            startActivity(intent);
         });
 
         // Toggle Password Visibility
         ivTogglePassword.setOnClickListener(v -> {
-            if (isPasswordVisible) {
-                etPassword.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                ivTogglePassword.setImageResource(R.drawable.ic_eye_closed);
-                isPasswordVisible = false;
-            } else {
-                etPassword.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                ivTogglePassword.setImageResource(R.drawable.ic_eye_open);
-                isPasswordVisible = true;
+            togglePasswordVisibility();
+        });
+    }
+
+    /**
+     * Performs login validation and authentication
+     */
+    private void performLogin() {
+        String email = etEmail.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+
+        // Input validation
+        if (!validateInput(email, password)) {
+            return;
+        }
+
+        // Disable login button to prevent multiple clicks
+        btnLogin.setEnabled(false);
+
+        try {
+            // Check if user exists in database
+            if (!databaseHelper.checkUserExists(email)) {
+                Toast.makeText(this, "No account found with this email address", Toast.LENGTH_LONG).show();
+                Log.d(TAG, "Login attempt with non-existent email: " + email);
+                btnLogin.setEnabled(true);
+                return;
             }
 
-            etPassword.setSelection(etPassword.getText().length());
-        });
+            // Validate user credentials
+            if (databaseHelper.validateUser(email, password)) {
+                // Login successful
+                Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Successful login for user: " + email);
+
+                // Navigate to main activity
+                navigateToMainActivity(email);
+
+            } else {
+                // Invalid credentials
+                Toast.makeText(this, "Invalid email or password", Toast.LENGTH_LONG).show();
+                Log.d(TAG, "Invalid login attempt for email: " + email);
+
+                // Clear password field for security
+                etPassword.setText("");
+                btnLogin.setEnabled(true);
+            }
+
+        } catch (Exception e) {
+            Log.e(TAG, "Error during login process: " + e.getMessage(), e);
+            Toast.makeText(this, "Login failed. Please try again.", Toast.LENGTH_LONG).show();
+            btnLogin.setEnabled(true);
+        }
+    }
+
+    /**
+     * Validates user input
+     */
+    private boolean validateInput(String email, String password) {
+        // Check if fields are empty
+        if (email.isEmpty()) {
+            etEmail.setError("Email is required");
+            etEmail.requestFocus();
+            return false;
+        }
+
+        if (password.isEmpty()) {
+            etPassword.setError("Password is required");
+            etPassword.requestFocus();
+            return false;
+        }
+
+        // Basic email format validation
+        if (!isValidEmail(email)) {
+            etEmail.setError("Please enter a valid email address");
+            etEmail.requestFocus();
+            return false;
+        }
+
+        // Password length validation
+        if (password.length() < 6) {
+            etPassword.setError("Password must be at least 6 characters");
+            etPassword.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Basic email validation
+     */
+    private boolean isValidEmail(String email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    /**
+     * Navigates to the main activity after successful login
+     */
+    private void navigateToMainActivity(String email) {
+        Intent intent = new Intent(Log_in.this, nav_bar.class);
+        intent.putExtra("EMAIL", email);
+
+        // Add flags to clear the activity stack
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        startActivity(intent);
+        finish();
+    }
+
+    /**
+     * Handles forgot password functionality
+     */
+    private void handleForgotPassword() {
+        String email = etEmail.getText().toString().trim();
+
+        if (email.isEmpty()) {
+            Toast.makeText(this, "Please enter your email address first", Toast.LENGTH_SHORT).show();
+            etEmail.requestFocus();
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+            etEmail.requestFocus();
+            return;
+        }
+
+        // Check if user exists
+        if (databaseHelper.checkUserExists(email)) {
+            Toast.makeText(this, "Password reset instructions would be sent to: " + email,
+                    Toast.LENGTH_LONG).show();
+            Log.d(TAG, "Password reset requested for: " + email);
+
+            // TODO: Implement actual password reset functionality
+            // This could involve sending an email, generating a reset token, etc.
+
+        } else {
+            Toast.makeText(this, "No account found with this email address",
+                    Toast.LENGTH_LONG).show();
+            Log.d(TAG, "Password reset attempted for non-existent email: " + email);
+        }
+    }
+
+    /**
+     * Toggles password visibility
+     */
+    private void togglePasswordVisibility() {
+        if (isPasswordVisible) {
+            // Hide password
+            etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            ivTogglePassword.setImageResource(R.drawable.ic_eye_closed);
+            isPasswordVisible = false;
+        } else {
+            // Show password
+            etPassword.setTransformationMethod(null);
+            ivTogglePassword.setImageResource(R.drawable.ic_eye_open);
+            isPasswordVisible = true;
+        }
+
+        // Move cursor to end of text
+        etPassword.setSelection(etPassword.getText().length());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Close database connection if needed
+        if (databaseHelper != null) {
+            // DatabaseHelper handles closing connections in each method
+            Log.d(TAG, "Activity destroyed");
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Re-enable login button when returning to this activity
+        if (btnLogin != null) {
+            btnLogin.setEnabled(true);
+        }
     }
 }

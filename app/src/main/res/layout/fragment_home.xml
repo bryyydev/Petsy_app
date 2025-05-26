@@ -42,7 +42,7 @@
                 android:background="@drawable/white_bg_two"
                 android:contentDescription="Location Icon"
                 android:src="@drawable/ic_loc"
-                app:tint="#333333"
+                android:tint="#333333"
                 android:scaleType="centerInside"
                 android:padding="6dp" />
 
@@ -179,8 +179,8 @@
                     android:padding="8dp">
 
                     <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:src="@drawable/dog"
                         android:contentDescription="Dog"
 
@@ -202,27 +202,27 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:orientation="vertical"
+                    android:gravity="center"
                     android:padding="8dp">
 
                     <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/cat"
                         android:contentDescription="Cat"
-                        android:padding="8dp"
 
                         android:scaleType="centerCrop"
-                        android:src="@drawable/cat" />
+                        android:padding="8dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
                         android:text="Cat"
-                        android:textColor="#000"
                         android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textColor="#000"
+                        android:layout_marginTop="4dp"
+                        android:textStyle="bold"/>
                 </LinearLayout>
 
                 <!-- Fish Category -->
@@ -236,7 +236,7 @@
 
                     <ImageView
                         android:layout_width="60dp"
-                        android:layout_height="65dp"
+                        android:layout_height="60dp"
                         android:src="@drawable/fish"
                         android:contentDescription="Fish"
                         android:scaleType="centerCrop"
@@ -262,8 +262,8 @@
                     android:padding="8dp">
 
                     <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:src="@drawable/bird"
                         android:contentDescription="Bird"
 
@@ -279,13 +279,14 @@
                         android:layout_marginTop="4dp"
                         android:textStyle="bold"/>
                 </LinearLayout>
+                !-- Category icons here (Dog, Cat, Fish, Birds) - same as provided -->
 
             </LinearLayout>
         </LinearLayout>
 
         <!-- Best Seller Section -->
         <LinearLayout
-            android:id="@+id/bestSellerSection1"
+            android:id="@+id/bestSellerSection"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -295,7 +296,7 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <LinearLayout
-                android:id="@+id/bestSellerSection2"
+                android:id="@+id/bestSellerSection"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
@@ -333,7 +334,7 @@
 
                         <!-- You can duplicate this block with different content -->
                         <LinearLayout
-                            android:layout_width="150dp"
+                            android:layout_width="160dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="12dp"
                             android:background="@drawable/productbox"
@@ -343,7 +344,7 @@
 
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="100dp"
                                 android:scaleType="centerInside"
                                 android:src="@drawable/product1" />
 
@@ -361,8 +362,32 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
+
                                 android:orientation="horizontal">
 
+                                <!-- Star rating -->
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="14dp"
+                                        android:layout_height="14dp"
+                                        android:src="@drawable/ic_star"
+                                        android:tint="#FFD700" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="4dp"
+                                        android:text="4.8 (2.2k)"
+                                        android:textColor="#888888"
+                                        android:textSize="12sp" />
+                                </LinearLayout>
+
+                                <!-- Price -->
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -370,30 +395,6 @@
                                     android:textColor="#1BAA80"
                                     android:textSize="14sp"
                                     android:textStyle="bold" />
-
-                                <!-- Star rating -->
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="5dp"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
-
-                                    <ImageView
-                                        android:layout_width="14dp"
-                                        android:layout_height="14dp"
-                                        android:src="@drawable/ic_star"
-                                        app:tint="#FFD700" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="4dp"
-                                        android:text="4.8 (2.2k)"
-                                        android:textColor="#888888"
-                                        android:textSize="12sp" />
-                                </LinearLayout>
-
                             </LinearLayout>
 
                             <!-- Shopping cart icon -->
@@ -403,88 +404,12 @@
                                 android:layout_gravity="end"
                                 android:layout_marginTop="8dp"
                                 android:src="@drawable/ic_cart"
-                                app:tint="#1BAA80" />
+                                android:tint="#1BAA80" />
                         </LinearLayout>
 
 
                         <LinearLayout
-                            android:layout_width="150dp"
-                            android:layout_height="170dp"
-                            android:layout_marginEnd="12dp"
-                            android:background="@drawable/productbox"
-                            android:elevation="2dp"
-                            android:orientation="vertical"
-                            android:padding="8dp">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="74dp"
-                                android:scaleType="centerInside"
-                                android:src="@drawable/product2" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="Plant Based Cat Liter"
-                                android:textColor="#000000"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
-                            <!-- Row for rating and price -->
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-
-                                android:orientation="horizontal">
-
-                                <!-- Price -->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="₱160.00"
-                                    android:textColor="#1BAA80"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-
-                                <!-- Star rating -->
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="5dp"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
-
-                                    <ImageView
-                                        android:layout_width="14dp"
-                                        android:layout_height="14dp"
-                                        android:src="@drawable/ic_star"
-                                        app:tint="#FFD700" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="4dp"
-                                        android:text="4.8 (2.2k)"
-                                        android:textColor="#888888"
-                                        android:textSize="12sp" />
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-                            <!-- Shopping cart icon -->
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_gravity="end"
-                                android:layout_marginTop="8dp"
-                                android:src="@drawable/ic_cart"
-                                app:tint="#1BAA80" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="150dp"
+                            android:layout_width="160dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="12dp"
                             android:background="@drawable/productbox"
@@ -494,7 +419,81 @@
 
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="74dp"
+                                android:layout_height="100dp"
+                                android:scaleType="centerInside"
+                                android:src="@drawable/product2" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="Plant Based Cat Litetr"
+                                android:textColor="#000000"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <!-- Row for rating and price -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+
+                                android:orientation="horizontal">
+
+                                <!-- Star rating -->
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="14dp"
+                                        android:layout_height="14dp"
+                                        android:src="@drawable/ic_star"
+                                        android:tint="#FFD700" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="4dp"
+                                        android:text="4.8 (2.2k)"
+                                        android:textColor="#888888"
+                                        android:textSize="12sp" />
+                                </LinearLayout>
+
+                                <!-- Price -->
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="₱160.00"
+                                    android:textColor="#1BAA80"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <!-- Shopping cart icon -->
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="end"
+                                android:layout_marginTop="8dp"
+                                android:src="@drawable/ic_cart"
+                                android:tint="#1BAA80" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="12dp"
+                            android:background="@drawable/productbox"
+                            android:elevation="2dp"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
                                 android:scaleType="centerInside"
                                 android:src="@drawable/product3" />
 
@@ -509,26 +508,16 @@
 
                             <!-- Row for rating and price -->
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
 
                                 android:orientation="horizontal">
 
-                                <!-- Price -->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="₱120.00"
-                                    android:textColor="#1BAA80"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-
                                 <!-- Star rating -->
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="5dp"
                                     android:gravity="center_vertical"
                                     android:orientation="horizontal">
 
@@ -536,7 +525,7 @@
                                         android:layout_width="14dp"
                                         android:layout_height="14dp"
                                         android:src="@drawable/ic_star"
-                                        app:tint="#FFD700" />
+                                        android:tint="#FFD700" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -547,7 +536,14 @@
                                         android:textSize="12sp" />
                                 </LinearLayout>
 
-
+                                <!-- Price -->
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="₱120.00"
+                                    android:textColor="#1BAA80"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
                             </LinearLayout>
 
                             <!-- Shopping cart icon -->
@@ -557,11 +553,11 @@
                                 android:layout_gravity="end"
                                 android:layout_marginTop="8dp"
                                 android:src="@drawable/ic_cart"
-                                app:tint="#1BAA80" />
+                                android:tint="#1BAA80" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="150dp"
+                            android:layout_width="160dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="12dp"
                             android:background="@drawable/productbox"
@@ -571,7 +567,7 @@
 
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="74dp"
+                                android:layout_height="100dp"
                                 android:scaleType="centerInside"
                                 android:src="@drawable/product5" />
 
@@ -586,25 +582,15 @@
 
                             <!-- Row for rating and price -->
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:orientation="horizontal">
-
-                                <!-- Price -->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="₱100.00"
-                                    android:textColor="#1BAA80"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
 
                                 <!-- Star rating -->
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="5dp"
                                     android:gravity="center_vertical"
                                     android:orientation="horizontal">
 
@@ -612,7 +598,7 @@
                                         android:layout_width="14dp"
                                         android:layout_height="14dp"
                                         android:src="@drawable/ic_star"
-                                        app:tint="#FFD700" />
+                                        android:tint="#FFD700" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -623,7 +609,14 @@
                                         android:textSize="12sp" />
                                 </LinearLayout>
 
-
+                                <!-- Price -->
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="₱100.00"
+                                    android:textColor="#1BAA80"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
                             </LinearLayout>
 
                             <!-- Shopping cart icon -->
@@ -633,11 +626,11 @@
                                 android:layout_gravity="end"
                                 android:layout_marginTop="8dp"
                                 android:src="@drawable/ic_cart"
-                                app:tint="#1BAA80" />
+                                android:tint="#1BAA80" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="150dp"
+                            android:layout_width="160dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="12dp"
                             android:background="@drawable/productbox"
@@ -647,7 +640,7 @@
 
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="74dp"
+                                android:layout_height="100dp"
                                 android:scaleType="centerInside"
                                 android:src="@drawable/product4" />
 
@@ -662,25 +655,15 @@
 
                             <!-- Row for rating and price -->
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:orientation="horizontal">
-
-                                <!-- Price -->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="₱200.00"
-                                    android:textColor="#1BAA80"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
 
                                 <!-- Star rating -->
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="5dp"
                                     android:gravity="center_vertical"
                                     android:orientation="horizontal">
 
@@ -688,7 +671,7 @@
                                         android:layout_width="14dp"
                                         android:layout_height="14dp"
                                         android:src="@drawable/ic_star"
-                                        app:tint="#FFD700" />
+                                        android:tint="#FFD700" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -699,7 +682,14 @@
                                         android:textSize="12sp" />
                                 </LinearLayout>
 
-
+                                <!-- Price -->
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="₱200.00"
+                                    android:textColor="#1BAA80"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
                             </LinearLayout>
 
                             <!-- Shopping cart icon -->
@@ -709,11 +699,11 @@
                                 android:layout_gravity="end"
                                 android:layout_marginTop="8dp"
                                 android:src="@drawable/ic_cart"
-                                app:tint="#1BAA80" />
+                                android:tint="#1BAA80" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="150dp"
+                            android:layout_width="160dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="12dp"
                             android:background="@drawable/productbox"
@@ -723,7 +713,7 @@
 
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="75dp"
+                                android:layout_height="100dp"
                                 android:scaleType="centerInside"
                                 android:src="@drawable/product6" />
 
@@ -738,25 +728,15 @@
 
                             <!-- Row for rating and price -->
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:orientation="horizontal">
-
-                                <!-- Price -->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:text="₱130.00"
-                                    android:textColor="#1BAA80"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
 
                                 <!-- Star rating -->
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="5dp"
                                     android:gravity="center_vertical"
                                     android:orientation="horizontal">
 
@@ -764,7 +744,7 @@
                                         android:layout_width="14dp"
                                         android:layout_height="14dp"
                                         android:src="@drawable/ic_star"
-                                        app:tint="#FFD700" />
+                                        android:tint="#FFD700" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -775,6 +755,14 @@
                                         android:textSize="12sp" />
                                 </LinearLayout>
 
+                                <!-- Price -->
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="₱130.00"
+                                    android:textColor="#1BAA80"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
                             </LinearLayout>
 
                             <!-- Shopping cart icon -->
@@ -784,7 +772,7 @@
                                 android:layout_gravity="end"
                                 android:layout_marginTop="8dp"
                                 android:src="@drawable/ic_cart"
-                                app:tint="#1BAA80" />
+                                android:tint="#1BAA80" />
                         </LinearLayout>
 
 
@@ -836,7 +824,7 @@
 
 
                         <LinearLayout
-                            android:layout_width="150dp"
+                            android:layout_width="160dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="12dp"
                             android:background="@drawable/productbox"
@@ -846,7 +834,7 @@
 
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="75dp"
+                                android:layout_height="100dp"
                                 android:scaleType="centerInside"
                                 android:src="@drawable/product7" />
 
@@ -861,26 +849,16 @@
 
                             <!-- Row for rating and price -->
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
 
                                 android:orientation="horizontal">
 
-                                <!-- Price -->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="₱145.00"
-                                    android:textColor="#1BAA80"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-
                                 <!-- Star rating -->
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="5dp"
                                     android:gravity="center_vertical"
                                     android:orientation="horizontal">
 
@@ -888,7 +866,7 @@
                                         android:layout_width="14dp"
                                         android:layout_height="14dp"
                                         android:src="@drawable/ic_star"
-                                        app:tint="#FFD700" />
+                                        android:tint="#FFD700" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -899,6 +877,14 @@
                                         android:textSize="12sp" />
                                 </LinearLayout>
 
+                                <!-- Price -->
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="₱145.00"
+                                    android:textColor="#1BAA80"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
                             </LinearLayout>
 
                             <!-- Shopping cart icon -->
@@ -908,11 +894,11 @@
                                 android:layout_gravity="end"
                                 android:layout_marginTop="8dp"
                                 android:src="@drawable/ic_cart"
-                                app:tint="#1BAA80" />
+                                android:tint="#1BAA80" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="150dp"
+                            android:layout_width="160dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="12dp"
                             android:background="@drawable/productbox"
@@ -922,7 +908,7 @@
 
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="75dp"
+                                android:layout_height="100dp"
                                 android:scaleType="centerInside"
                                 android:src="@drawable/product8" />
 
@@ -937,26 +923,16 @@
 
                             <!-- Row for rating and price -->
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
 
                                 android:orientation="horizontal">
 
-                                <!-- Price -->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="₱105.00"
-                                    android:textColor="#1BAA80"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-
                                 <!-- Star rating -->
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="5dp"
                                     android:gravity="center_vertical"
                                     android:orientation="horizontal">
 
@@ -964,7 +940,7 @@
                                         android:layout_width="14dp"
                                         android:layout_height="14dp"
                                         android:src="@drawable/ic_star"
-                                        app:tint="#FFD700" />
+                                        android:tint="#FFD700" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -975,6 +951,14 @@
                                         android:textSize="12sp" />
                                 </LinearLayout>
 
+                                <!-- Price -->
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="₱105.00"
+                                    android:textColor="#1BAA80"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
                             </LinearLayout>
 
                             <!-- Shopping cart icon -->
@@ -984,11 +968,11 @@
                                 android:layout_gravity="end"
                                 android:layout_marginTop="8dp"
                                 android:src="@drawable/ic_cart"
-                                app:tint="#1BAA80" />
+                                android:tint="#1BAA80" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="150dp"
+                            android:layout_width="160dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="12dp"
                             android:background="@drawable/productbox"
@@ -998,7 +982,7 @@
 
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="75dp"
+                                android:layout_height="100dp"
                                 android:scaleType="centerInside"
                                 android:src="@drawable/product9" />
 
@@ -1012,29 +996,17 @@
                                 android:textStyle="bold" />
 
                             <!-- Row for rating and price -->
-
-                            <!-- Shopping cart icon -->
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
 
                                 android:orientation="horizontal">
 
-                                <!-- Price -->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="₱110.00"
-                                    android:textColor="#1BAA80"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-
                                 <!-- Star rating -->
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="5dp"
                                     android:gravity="center_vertical"
                                     android:orientation="horizontal">
 
@@ -1042,7 +1014,7 @@
                                         android:layout_width="14dp"
                                         android:layout_height="14dp"
                                         android:src="@drawable/ic_star"
-                                        app:tint="#FFD700" />
+                                        android:tint="#FFD700" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1053,20 +1025,28 @@
                                         android:textSize="12sp" />
                                 </LinearLayout>
 
-
+                                <!-- Price -->
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="₱110.00"
+                                    android:textColor="#1BAA80"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
                             </LinearLayout>
 
+                            <!-- Shopping cart icon -->
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="end"
                                 android:layout_marginTop="8dp"
                                 android:src="@drawable/ic_cart"
-                                app:tint="#1BAA80" />
+                                android:tint="#1BAA80" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="150dp"
+                            android:layout_width="160dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="12dp"
                             android:background="@drawable/productbox"
@@ -1076,7 +1056,7 @@
 
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="75dp"
+                                android:layout_height="100dp"
                                 android:scaleType="centerInside"
                                 android:src="@drawable/product10" />
 
@@ -1091,25 +1071,15 @@
 
                             <!-- Row for rating and price -->
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:orientation="horizontal">
-
-                                <!-- Price -->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="₱170.00"
-                                    android:textColor="#1BAA80"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
 
                                 <!-- Star rating -->
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="5dp"
                                     android:gravity="center_vertical"
                                     android:orientation="horizontal">
 
@@ -1117,7 +1087,7 @@
                                         android:layout_width="14dp"
                                         android:layout_height="14dp"
                                         android:src="@drawable/ic_star"
-                                        app:tint="#FFD700" />
+                                        android:tint="#FFD700" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1128,6 +1098,14 @@
                                         android:textSize="12sp" />
                                 </LinearLayout>
 
+                                <!-- Price -->
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="₱170.00"
+                                    android:textColor="#1BAA80"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
                             </LinearLayout>
 
                             <!-- Shopping cart icon -->
@@ -1137,11 +1115,11 @@
                                 android:layout_gravity="end"
                                 android:layout_marginTop="8dp"
                                 android:src="@drawable/ic_cart"
-                                app:tint="#1BAA80" />
+                                android:tint="#1BAA80" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="150dp"
+                            android:layout_width="160dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="12dp"
                             android:background="@drawable/productbox"
@@ -1151,7 +1129,7 @@
 
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="75dp"
+                                android:layout_height="100dp"
                                 android:scaleType="centerInside"
                                 android:src="@drawable/product11" />
 
@@ -1166,25 +1144,15 @@
 
                             <!-- Row for rating and price -->
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:orientation="horizontal">
-
-                                <!-- Price -->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="₱170.00"
-                                    android:textColor="#1BAA80"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
 
                                 <!-- Star rating -->
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="5dp"
                                     android:gravity="center_vertical"
                                     android:orientation="horizontal">
 
@@ -1192,7 +1160,7 @@
                                         android:layout_width="14dp"
                                         android:layout_height="14dp"
                                         android:src="@drawable/ic_star"
-                                        app:tint="#FFD700" />
+                                        android:tint="#FFD700" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1203,7 +1171,14 @@
                                         android:textSize="12sp" />
                                 </LinearLayout>
 
-
+                                <!-- Price -->
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="₱170.00"
+                                    android:textColor="#1BAA80"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
                             </LinearLayout>
 
                             <!-- Shopping cart icon -->
@@ -1213,12 +1188,12 @@
                                 android:layout_gravity="end"
                                 android:layout_marginTop="8dp"
                                 android:src="@drawable/ic_cart"
-                                app:tint="#1BAA80" />
+                                android:tint="#1BAA80" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="150dp"
-                            android:layout_height="match_parent"
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginEnd="12dp"
                             android:background="@drawable/productbox"
                             android:elevation="2dp"
@@ -1227,14 +1202,14 @@
 
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="65dp"
+                                android:layout_height="100dp"
                                 android:scaleType="centerInside"
                                 android:src="@drawable/product12" />
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
+                                android:layout_marginTop="8dp"
                                 android:text="Reversible Dog Jacket"
                                 android:textColor="#000000"
                                 android:textSize="14sp"
@@ -1242,25 +1217,15 @@
 
                             <!-- Row for rating and price -->
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
+                                android:layout_marginTop="4dp"
                                 android:orientation="horizontal">
-
-                                <!-- Price -->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="₱170.00"
-                                    android:textColor="#1BAA80"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
 
                                 <!-- Star rating -->
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="5dp"
                                     android:gravity="center_vertical"
                                     android:orientation="horizontal">
 
@@ -1268,7 +1233,7 @@
                                         android:layout_width="14dp"
                                         android:layout_height="14dp"
                                         android:src="@drawable/ic_star"
-                                        app:tint="#FFD700" />
+                                        android:tint="#FFD700" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1279,6 +1244,14 @@
                                         android:textSize="12sp" />
                                 </LinearLayout>
 
+                                <!-- Price -->
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="₱170.00"
+                                    android:textColor="#1BAA80"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
                             </LinearLayout>
 
                             <!-- Shopping cart icon -->
@@ -1286,9 +1259,9 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="end"
-                                android:layout_marginTop="6dp"
+                                android:layout_marginTop="8dp"
                                 android:src="@drawable/ic_cart"
-                                app:tint="#1BAA80" />
+                                android:tint="#1BAA80" />
                         </LinearLayout>
 
 
@@ -1328,7 +1301,7 @@
 
                     <!-- You can duplicate this block with different content -->
                     <LinearLayout
-                        android:layout_width="150dp"
+                        android:layout_width="160dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="12dp"
                         android:background="@drawable/productbox"
@@ -1338,7 +1311,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="75dp"
+                            android:layout_height="100dp"
                             android:scaleType="centerInside"
                             android:src="@drawable/product13" />
 
@@ -1353,26 +1326,16 @@
 
                         <!-- Row for rating and price -->
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
 
                             android:orientation="horizontal">
 
-                            <!-- Price -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="₱199.00"
-                                android:textColor="#1BAA80"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
                             <!-- Star rating -->
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="5dp"
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal">
 
@@ -1380,7 +1343,7 @@
                                     android:layout_width="14dp"
                                     android:layout_height="14dp"
                                     android:src="@drawable/ic_star"
-                                    app:tint="#FFD700" />
+                                    android:tint="#FFD700" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -1391,6 +1354,14 @@
                                     android:textSize="12sp" />
                             </LinearLayout>
 
+                            <!-- Price -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="₱170.00"
+                                android:textColor="#1BAA80"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
 
                         <!-- Shopping cart icon -->
@@ -1400,13 +1371,13 @@
                             android:layout_gravity="end"
                             android:layout_marginTop="8dp"
                             android:src="@drawable/ic_cart"
-                            app:tint="#1BAA80" />
+                            android:tint="#1BAA80" />
                     </LinearLayout>
 
 
                     <LinearLayout
-                        android:layout_width="150dp"
-                        android:layout_height="170dp"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="12dp"
                         android:background="@drawable/productbox"
                         android:elevation="2dp"
@@ -1415,14 +1386,14 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="100dp"
                             android:scaleType="centerInside"
                             android:src="@drawable/product14" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="8dp"
                             android:text="Tuna Canned Cat Food"
                             android:textColor="#000000"
                             android:textSize="14sp"
@@ -1430,178 +1401,16 @@
 
                         <!-- Row for rating and price -->
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-
-                            android:orientation="horizontal">
-
-                            <!-- Price -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="₱170.00"
-                                android:textColor="#1BAA80"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
-                            <!-- Star rating -->
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="5dp"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="14dp"
-                                    android:layout_height="14dp"
-                                    android:src="@drawable/ic_star"
-                                    app:tint="#FFD700" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="4dp"
-                                    android:text="4.8 (2.2k)"
-                                    android:textColor="#888888"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <!-- Shopping cart icon -->
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="7dp"
-                            android:src="@drawable/ic_cart"
-                            app:tint="#1BAA80" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="150dp"
-                        android:layout_height="170dp"
-                        android:layout_marginEnd="12dp"
-                        android:background="@drawable/productbox"
-                        android:elevation="2dp"
-                        android:orientation="vertical"
-                        android:padding="8dp">
-
-                        <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="62dp"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/product15" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="Dried Raw Dog Treats "
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <!-- Row for rating and price -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-
-                            android:orientation="horizontal">
-
-                            <!-- Price -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="₱148.00"
-                                android:textColor="#1BAA80"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
-                            <!-- Star rating -->
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="5dp"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="14dp"
-                                    android:layout_height="14dp"
-                                    android:src="@drawable/ic_star"
-                                    app:tint="#FFD700" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginStart="4dp"
-                                    android:text="4.8 (2.2k)"
-                                    android:textColor="#888888"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <!-- Shopping cart icon -->
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="6dp"
-                            android:src="@drawable/ic_cart"
-                            app:tint="#1BAA80" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="12dp"
-                        android:background="@drawable/productbox"
-                        android:elevation="2dp"
-                        android:orientation="vertical"
-                        android:padding="8dp">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="73dp"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/product16" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:text="Grooming Pet Wipes"
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-
-                        <!-- Row for rating and price -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:orientation="horizontal">
 
-                            <!-- Price -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="₱170.00"
-                                android:textColor="#1BAA80"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                            android:orientation="horizontal">
 
                             <!-- Star rating -->
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="5dp"
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal">
 
@@ -1609,7 +1418,7 @@
                                     android:layout_width="14dp"
                                     android:layout_height="14dp"
                                     android:src="@drawable/ic_star"
-                                    app:tint="#FFD700" />
+                                    android:tint="#FFD700" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -1620,6 +1429,14 @@
                                     android:textSize="12sp" />
                             </LinearLayout>
 
+                            <!-- Price -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="₱170.00"
+                                android:textColor="#1BAA80"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
 
                         <!-- Shopping cart icon -->
@@ -1629,11 +1446,11 @@
                             android:layout_gravity="end"
                             android:layout_marginTop="8dp"
                             android:src="@drawable/ic_cart"
-                            app:tint="#1BAA80" />
+                            android:tint="#1BAA80" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="150dp"
+                        android:layout_width="160dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="12dp"
                         android:background="@drawable/productbox"
@@ -1643,7 +1460,154 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="75dp"
+                            android:layout_height="100dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/product15" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Dried Raw Dog Treats "
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <!-- Row for rating and price -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+
+                            android:orientation="horizontal">
+
+                            <!-- Star rating -->
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:src="@drawable/ic_star"
+                                    android:tint="#FFD700" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp"
+                                    android:text="4.8 (2.2k)"
+                                    android:textColor="#888888"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+
+                            <!-- Price -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="₱170.00"
+                                android:textColor="#1BAA80"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Shopping cart icon -->
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/ic_cart"
+                            android:tint="#1BAA80" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:background="@drawable/productbox"
+                        android:elevation="2dp"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/product16" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Grooming Pet Wipes"
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <!-- Row for rating and price -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:orientation="horizontal">
+
+                            <!-- Star rating -->
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:src="@drawable/ic_star"
+                                    android:tint="#FFD700" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp"
+                                    android:text="4.8 (2.2k)"
+                                    android:textColor="#888888"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+
+                            <!-- Price -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="₱170.00"
+                                android:textColor="#1BAA80"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Shopping cart icon -->
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/ic_cart"
+                            android:tint="#1BAA80" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:background="@drawable/productbox"
+                        android:elevation="2dp"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
                             android:scaleType="centerInside"
                             android:src="@drawable/product17" />
 
@@ -1658,25 +1622,15 @@
 
                         <!-- Row for rating and price -->
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:orientation="horizontal">
-
-                            <!-- Price -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="₱170.00"
-                                android:textColor="#1BAA80"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
 
                             <!-- Star rating -->
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="5dp"
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal">
 
@@ -1684,7 +1638,7 @@
                                     android:layout_width="14dp"
                                     android:layout_height="14dp"
                                     android:src="@drawable/ic_star"
-                                    app:tint="#FFD700" />
+                                    android:tint="#FFD700" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -1695,6 +1649,14 @@
                                     android:textSize="12sp" />
                             </LinearLayout>
 
+                            <!-- Price -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="₱170.00"
+                                android:textColor="#1BAA80"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
 
                         <!-- Shopping cart icon -->
@@ -1704,11 +1666,11 @@
                             android:layout_gravity="end"
                             android:layout_marginTop="8dp"
                             android:src="@drawable/ic_cart"
-                            app:tint="#1BAA80" />
+                            android:tint="#1BAA80" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="150dp"
+                        android:layout_width="160dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="12dp"
                         android:background="@drawable/productbox"
@@ -1718,7 +1680,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="75dp"
+                            android:layout_height="100dp"
                             android:scaleType="centerInside"
                             android:src="@drawable/product18" />
 
@@ -1733,25 +1695,15 @@
 
                         <!-- Row for rating and price -->
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:orientation="horizontal">
-
-                            <!-- Price -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="₱170.00"
-                                android:textColor="#1BAA80"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
 
                             <!-- Star rating -->
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="5dp"
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal">
 
@@ -1759,7 +1711,7 @@
                                     android:layout_width="14dp"
                                     android:layout_height="14dp"
                                     android:src="@drawable/ic_star"
-                                    app:tint="#FFD700" />
+                                    android:tint="#FFD700" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -1770,6 +1722,14 @@
                                     android:textSize="12sp" />
                             </LinearLayout>
 
+                            <!-- Price -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="₱170.00"
+                                android:textColor="#1BAA80"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
 
                         <!-- Shopping cart icon -->
@@ -1779,13 +1739,18 @@
                             android:layout_gravity="end"
                             android:layout_marginTop="8dp"
                             android:src="@drawable/ic_cart"
-                            app:tint="#1BAA80" />
+                            android:tint="#1BAA80" />
                     </LinearLayout>
 
 
                     <!-- Duplicate 5 more items with different images/text -->
                 </LinearLayout>
             </HorizontalScrollView>
+
+
         </LinearLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </ScrollView>
