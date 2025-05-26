@@ -31,7 +31,6 @@ public class Profile_Fragment extends Fragment {
         super.onCreate(savedInstanceState);
         dbHelper = new DatabaseHelper(requireContext());
 
-        // Get email from arguments
         if (getArguments() != null) {
             email = getArguments().getString("EMAIL");
         }
@@ -53,28 +52,44 @@ public class Profile_Fragment extends Fragment {
         tvUsername = view.findViewById(R.id.tv_username);
         btnEditInfo = view.findViewById(R.id.btn_edit_profile);
 
-        String usernameToDisplay = "user"; // Default fallback username
-
         if (email != null && !email.isEmpty()) {
-            usernameToDisplay = getUsernameByEmail(email);
+            String fullName = getFullNameByEmail(email);
+            String username = getUsernameByEmail(email);
+
+            tvName.setText(fullName);
+            tvUsername.setText("@" + username);
         }
-
-        // Set tvName without @
-        tvName.setText(usernameToDisplay);
-
-        // Set tvUsername with @
-        tvUsername.setText("@" + usernameToDisplay);
 
         btnEditInfo.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), Edit_Info.class);
-            intent.putExtra("EMAIL", email);  // Pass email for editing user info
+            intent.putExtra("email", email);
             startActivity(intent);
         });
     }
 
+    private String getFullNameByEmail(String email) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String fullName = "User";
+
+        String[] columns = { "first_name", "last_name" };
+        String selection = "email = ?";
+        String[] selectionArgs = { email };
+
+        Cursor cursor = db.query("users", columns, selection, selectionArgs, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            String firstName = cursor.getString(cursor.getColumnIndexOrThrow("first_name"));
+            String lastName = cursor.getString(cursor.getColumnIndexOrThrow("last_name"));
+            fullName = firstName + " " + lastName;
+            cursor.close();
+        }
+
+        return fullName;
+    }
+
     private String getUsernameByEmail(String email) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String username = "user"; // fallback
+        String username = "user";
 
         String[] columns = { "username" };
         String selection = "email = ?";
