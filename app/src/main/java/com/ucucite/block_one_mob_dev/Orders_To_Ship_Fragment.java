@@ -1,27 +1,30 @@
 package com.ucucite.block_one_mob_dev;
 
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Home_Fragment#newInstance} factory method to
+ * Use the {@link Orders_To_Ship_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Home_Fragment extends Fragment {
+public class Orders_To_Ship_Fragment extends Fragment {
 
-    // Parameter arguments
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // Parameters
+    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public Home_Fragment() {
+    public Orders_To_Ship_Fragment() {
         // Required empty public constructor
     }
 
@@ -31,10 +34,11 @@ public class Home_Fragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Home_Fragment.
+     * @return A new instance of fragment Orders_To_ShipFragment.
      */
-    public static Home_Fragment newInstance(String param1, String param2) {
-        Home_Fragment fragment = new Home_Fragment();
+    // TODO: Rename and change types and number of parameters
+    public static Orders_To_Ship_Fragment newInstance(String param1, String param2) {
+        Orders_To_Ship_Fragment fragment = new Orders_To_Ship_Fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -55,6 +59,6 @@ public class Home_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false); // Updated to use the correct layout
+        return inflater.inflate(R.layout.fragment_orders__to__ship, container, false);
     }
 }
