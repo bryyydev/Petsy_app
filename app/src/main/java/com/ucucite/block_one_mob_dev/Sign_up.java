@@ -4,15 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-import androidx.core.content.ContextCompat;
-
-import com.ucucite.block_one_mob_dev.DatabaseHelper;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Sign_up extends AppCompatActivity {
@@ -26,14 +18,13 @@ public class Sign_up extends AppCompatActivity {
     private boolean isPasswordVisible = false;
     private boolean isConfirmPasswordVisible = false;
 
-    private DatabaseHelper dbHelper; // SQLite helper
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        // Initialize views
         editTextUsername = findViewById(R.id.editText_username);
         editTextEmail = findViewById(R.id.editText_email);
         editTextPassword = findViewById(R.id.editText_password);
@@ -46,11 +37,9 @@ public class Sign_up extends AppCompatActivity {
         btnSignUpFacebook = findViewById(R.id.btn_sign_up_facebook);
         tvLoginRedirect = findViewById(R.id.tv_login_redirect);
 
-
         dbHelper = new DatabaseHelper(this);
-        dbHelper.logAllUsers(); // Init DB
+        dbHelper.logAllUsers();
 
-        // Password toggle
         togglePassword.setOnClickListener(v -> {
             if (isPasswordVisible) {
                 editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -75,7 +64,6 @@ public class Sign_up extends AppCompatActivity {
             editTextConfirmPassword.setSelection(editTextConfirmPassword.getText().length());
         });
 
-        // Sign Up logic
         btnSignUp.setOnClickListener(v -> {
             String username = editTextUsername.getText().toString().trim();
             String email = editTextEmail.getText().toString().trim();
@@ -105,11 +93,10 @@ public class Sign_up extends AppCompatActivity {
             boolean inserted = dbHelper.insertUser(username, email, password);
             if (inserted) {
                 Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show();
-
-                // Log all users to Logcat
                 dbHelper.logAllUsers();
 
                 Intent intent = new Intent(Sign_up.this, Edit_Info.class);
+                intent.putExtra("email", email); // Pass email to Edit_Info
                 startActivity(intent);
                 finish();
             } else {
@@ -117,7 +104,6 @@ public class Sign_up extends AppCompatActivity {
             }
         });
 
-        // Redirect to login screen
         tvLoginRedirect.setOnClickListener(v -> {
             Intent intent = new Intent(Sign_up.this, Log_in.class);
             startActivity(intent);

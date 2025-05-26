@@ -41,10 +41,12 @@ public class Log_in extends AppCompatActivity {
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(Log_in.this, "Please enter email and password!", Toast.LENGTH_SHORT).show();
             } else {
+                // You can add your own login validation logic here (e.g. check DB, API etc.)
                 Toast.makeText(Log_in.this, "Logging in...", Toast.LENGTH_SHORT).show();
 
-                // ✅ Navigate to nav_bar activity
+                // ✅ Navigate to nav_bar activity passing the email
                 Intent intent = new Intent(Log_in.this, nav_bar.class);
+                intent.putExtra("EMAIL", email);
                 startActivity(intent);
                 finish(); // Optional: close the login screen
             }
