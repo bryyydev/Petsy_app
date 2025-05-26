@@ -10,7 +10,7 @@ import android.util.Log;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "UserDatabase.db";
-    private static final int DATABASE_VERSION = 2; // bump version to apply changes
+    private static final int DATABASE_VERSION = 2;
 
     private static final String TABLE_NAME = "users";
     private static final String COL_ID = "id";
@@ -95,7 +95,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String username = cursor.getString(cursor.getColumnIndexOrThrow(COL_USERNAME));
                 String email = cursor.getString(cursor.getColumnIndexOrThrow(COL_EMAIL));
                 String password = cursor.getString(cursor.getColumnIndexOrThrow(COL_PASSWORD));
-                Log.d("DB_LOG", "User: " + username + ", Email: " + email + ", Password: " + password);
+                String firstName = cursor.getString(cursor.getColumnIndexOrThrow("first_name"));
+                String lastName = cursor.getString(cursor.getColumnIndexOrThrow("last_name"));
+                String phone = cursor.getString(cursor.getColumnIndexOrThrow("phone_number"));
+                String province = cursor.getString(cursor.getColumnIndexOrThrow("province"));
+                String town = cursor.getString(cursor.getColumnIndexOrThrow("town"));
+                String barangay = cursor.getString(cursor.getColumnIndexOrThrow("barangay"));
+                String houseStreet = cursor.getString(cursor.getColumnIndexOrThrow("house_street"));
+
+                Log.d("DB_LOG", "User: " + username +
+                        ", Email: " + email +
+                        ", Password: " + password +
+                        ", First Name: " + firstName +
+                        ", Last Name: " + lastName +
+                        ", Phone: " + phone +
+                        ", Province: " + province +
+                        ", Town: " + town +
+                        ", Barangay: " + barangay +
+                        ", House/Street: " + houseStreet);
             } while (cursor.moveToNext());
         } else {
             Log.d("DB_LOG", "No users found in database.");

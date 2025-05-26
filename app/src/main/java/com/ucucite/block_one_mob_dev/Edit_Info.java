@@ -20,7 +20,7 @@ public class Edit_Info extends AppCompatActivity {
 
     private ShapeableImageView profileImageView;
     private ImageView editIcon;
-    private EditText username, firstName, lastName, phoneNumber, houseStreet;
+    private EditText firstName, lastName, phoneNumber, houseStreet;
     private Spinner spinnerProvince, spinnerTown, spinnerBarangay;
     private Button createAccountBtn;
 
@@ -30,7 +30,7 @@ public class Edit_Info extends AppCompatActivity {
     private final Map<String, List<String>> townBarangayMap = new HashMap<>();
 
     private DatabaseHelper dbHelper;
-    private String userEmail = "test@example.com"; // Replace with actual session email if available
+    private String userEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,7 @@ public class Edit_Info extends AppCompatActivity {
         setContentView(R.layout.activity_edit_info);
 
         dbHelper = new DatabaseHelper(this);
+        userEmail = getIntent().getStringExtra("email"); // get email from Sign_up
 
         initViews();
         setupDropdownMaps();
@@ -51,7 +52,6 @@ public class Edit_Info extends AppCompatActivity {
     private void initViews() {
         profileImageView = findViewById(R.id.imageView);
         editIcon = findViewById(R.id.edit_icon);
-
 
         firstName = findViewById(R.id.firstName);
         lastName = findViewById(R.id.lastName);
@@ -94,19 +94,14 @@ public class Edit_Info extends AppCompatActivity {
                 String selectedProvince = (String) spinnerProvince.getSelectedItem();
                 if (!selectedProvince.equals("Choose your Province")) {
                     List<String> towns = provinceTownMap.get(selectedProvince);
-                    if (towns != null) {
-                        List<String> updatedTownList = new ArrayList<>();
-                        updatedTownList.add("Choose your Town");
-                        updatedTownList.addAll(towns);
-                        spinnerTown.setAdapter(getCustomAdapter(updatedTownList));
-
-                        spinnerBarangay.setAdapter(getCustomAdapter(Collections.singletonList("Choose your Barangay")));
-                    }
+                    List<String> updatedTownList = new ArrayList<>();
+                    updatedTownList.add("Choose your Town");
+                    updatedTownList.addAll(towns);
+                    spinnerTown.setAdapter(getCustomAdapter(updatedTownList));
+                    spinnerBarangay.setAdapter(getCustomAdapter(Collections.singletonList("Choose your Barangay")));
                 }
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {}
+            @Override public void onNothingSelected(AdapterView<?> parentView) {}
         });
 
         spinnerTown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -115,17 +110,13 @@ public class Edit_Info extends AppCompatActivity {
                 String selectedTown = (String) spinnerTown.getSelectedItem();
                 if (!selectedTown.equals("Choose your Town")) {
                     List<String> barangays = townBarangayMap.get(selectedTown);
-                    if (barangays != null) {
-                        List<String> updatedBarangayList = new ArrayList<>();
-                        updatedBarangayList.add("Choose your Barangay");
-                        updatedBarangayList.addAll(barangays);
-                        spinnerBarangay.setAdapter(getCustomAdapter(updatedBarangayList));
-                    }
+                    List<String> updatedBarangayList = new ArrayList<>();
+                    updatedBarangayList.add("Choose your Barangay");
+                    updatedBarangayList.addAll(barangays);
+                    spinnerBarangay.setAdapter(getCustomAdapter(updatedBarangayList));
                 }
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {}
+            @Override public void onNothingSelected(AdapterView<?> parentView) {}
         });
     }
 
@@ -158,7 +149,6 @@ public class Edit_Info extends AppCompatActivity {
                         try {
                             Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
                             profileImageView.setImageBitmap(bitmap);
-                            // You could save image path to DB here
                         } catch (IOException e) {
                             e.printStackTrace();
                             Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show();
@@ -175,7 +165,6 @@ public class Edit_Info extends AppCompatActivity {
 
     private void handleFormSubmission() {
         createAccountBtn.setOnClickListener(v -> {
-            String uname = username.getText().toString().trim();
             String fName = firstName.getText().toString().trim();
             String lName = lastName.getText().toString().trim();
             String phone = phoneNumber.getText().toString().trim();
@@ -184,7 +173,7 @@ public class Edit_Info extends AppCompatActivity {
             String barangay = spinnerBarangay.getSelectedItem().toString().trim();
             String house = houseStreet.getText().toString().trim();
 
-            if (uname.isEmpty() || fName.isEmpty() || lName.isEmpty() || phone.isEmpty() || house.isEmpty() ||
+            if (fName.isEmpty() || lName.isEmpty() || phone.isEmpty() || house.isEmpty() ||
                     province.equals("Choose your Province") ||
                     town.equals("Choose your Town") ||
                     barangay.equals("Choose your Barangay")) {
@@ -193,13 +182,10 @@ public class Edit_Info extends AppCompatActivity {
             }
 
             boolean isUpdated = dbHelper.updateUserInfo(userEmail, fName, lName, phone, province, town, barangay, house);
-
             if (isUpdated) {
                 Toast.makeText(this, "Information updated successfully!", Toast.LENGTH_SHORT).show();
-
-                // Navigate to profile.java
-                Intent intent = new Intent(Edit_Info.this, Profile_Fragment.class);
-                intent.putExtra("email", userEmail); // optional: pass email
+                Intent intent = new Intent(Edit_Info.this, Log_in.class);
+                intent.putExtra("email", userEmail);
                 startActivity(intent);
                 finish();
             } else {
