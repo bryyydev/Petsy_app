@@ -5,6 +5,12 @@
       <entry key="Edit_Info">
         <State />
       </entry>
+      <entry key="Log_in">
+        <State />
+      </entry>
+      <entry key="Shipping_Address">
+        <State />
+      </entry>
       <entry key="Sign_up">
         <State>
           <runningDeviceTargetSelectedWithDropDown>

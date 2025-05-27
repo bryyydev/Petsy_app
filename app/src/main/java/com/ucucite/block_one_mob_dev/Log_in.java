@@ -1,6 +1,7 @@
 package com.ucucite.block_one_mob_dev;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
@@ -169,6 +170,14 @@ public class Log_in extends AppCompatActivity {
      * Navigates to the main activity after successful login
      */
     private void navigateToMainActivity(String email) {
+        // Save email to SharedPreferences for session management
+        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("user_email", email);
+        editor.apply();
+
+        Log.d(TAG, "User email saved to SharedPreferences: " + email);
+
         Intent intent = new Intent(Log_in.this, nav_bar.class);
         intent.putExtra("EMAIL", email);
 

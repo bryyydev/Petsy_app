@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="22dp"
+    tools:context=".Edit_Address">
+
+    <!-- Back Arrow -->
+    <ImageView
+        android:id="@+id/arrow_back"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/white_bg_two"
+        android:contentDescription="Arrow Back"
+        android:padding="6dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#333333" />
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/shipping_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:text="Shipping Address"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/arrow_back"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Home Label -->
+    <TextView
+        android:id="@+id/btnAddLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_home"
+        android:gravity="center"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="Home"
+        android:textColor="#339967"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shipping_title" />
+
+    <!-- Edit Icon -->
+    <ImageView
+        android:id="@+id/editIcon"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:background="@drawable/bg_green"
+        android:contentDescription="Edit Icon"
+        android:layout_marginStart="5dp"
+        android:padding="4dp"
+        android:src="@drawable/ic_pen"
+        app:layout_constraintStart_toEndOf="@+id/btnAddLabel"
+        app:layout_constraintTop_toTopOf="@+id/btnAddLabel" />
+
+    <!--Full Name -->
+
+    <TextView
+        android:id="@+id/fullNameLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Full Name"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/btnAddLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Address Card Button -->
+
+    <EditText
+        android:id="@+id/editTextFullName"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:hint="Enter Full Name"
+        android:paddingStart="10dp"
+        android:drawablePadding="10dp"
+        android:background="@drawable/edittext_white"
+        android:drawableStart="@drawable/ic_user"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fullNameLabel"/>
+
+    <!-- CELLPHONE -->
+
+    <TextView
+        android:id="@+id/phoneLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Cellphone Number"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextFullName" />
+
+    <EditText
+        android:id="@+id/editTextPhone"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edittext_white"
+        android:drawableStart="@drawable/icon_phone"
+        android:hint="Cellphone Number"
+        android:inputType="phone"
+        android:paddingStart="10dp"
+        android:drawablePadding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneLabel" />
+
+    <!-- MUNICIPALITY -->
+
+    <TextView
+        android:id="@+id/municipalityLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Municipality"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/editTextPhone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+
+    <Spinner
+        android:id="@+id/spinnerMunicipality"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edittext_white"
+        android:paddingStart="12dp"
+        app:layout_constraintTop_toBottomOf="@id/municipalityLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- TOWN -->
+    <TextView
+        android:id="@+id/townLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Town"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/spinnerMunicipality"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <Spinner
+        android:id="@+id/spinnerTown"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edittext_white"
+        android:paddingStart="12dp"
+        app:layout_constraintTop_toBottomOf="@id/townLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- BARANGAY -->
+    <TextView
+        android:id="@+id/barangayLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Barangay"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/spinnerTown"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <Spinner
+        android:id="@+id/spinnerBarangay"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edittext_white"
+        android:paddingStart="12dp"
+        app:layout_constraintTop_toBottomOf="@id/barangayLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- HOUSE NO/STREET -->
+    <TextView
+        android:id="@+id/houseLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="House No./Street"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/spinnerBarangay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/editTextHouse"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edittext_white"
+        android:drawableStart="@drawable/icon_address"
+        android:drawablePadding="10dp"
+        android:hint="House No. and Street"
+        android:inputType="textPostalAddress"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/houseLabel" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginBottom="20dp"
+        android:text="Add Address"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:background="@drawable/green_button_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

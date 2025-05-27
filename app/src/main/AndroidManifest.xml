@@ -13,14 +13,14 @@
         android:theme="@style/Theme.BlockOneMobDev"
         tools:targetApi="31">
         <activity
-            android:name=".Details"
+            android:name=".add_address"
             android:exported="false" />
         <activity
             android:name=".Edit_Address"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Shipping_Address"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".nav_bar"
             android:exported="true" />
