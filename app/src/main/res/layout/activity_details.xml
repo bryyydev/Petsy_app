@@ -7,11 +7,13 @@
     android:background="#F7F7F7">
 
     <!-- Fixed Header Section -->
+
+    <!-- Scrollable Content Section -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:background="#F7F7F7">
+        android:background="#F7F7F7"
+        android:padding="16dp">
 
         <!-- App Logo -->
         <ImageView
@@ -65,8 +67,8 @@
             android:background="@drawable/white_bg_two"
             android:padding="8dp"
             android:src="@drawable/ic_blackheart"
-            app:layout_constraintTop_toBottomOf="@id/image_logo"
-            app:layout_constraintEnd_toStartOf="@id/icon_share" />
+            app:layout_constraintEnd_toStartOf="@id/icon_share"
+            app:layout_constraintTop_toBottomOf="@id/image_logo" />
 
         <ImageView
             android:id="@+id/icon_share"
@@ -75,11 +77,10 @@
             android:background="@drawable/white_bg_two"
             android:padding="8dp"
             android:src="@drawable/ic_share"
-            app:layout_constraintTop_toBottomOf="@id/image_logo"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_logo" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Scrollable Content Section -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
