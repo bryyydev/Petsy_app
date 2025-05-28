@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Track_Orders">
+
+    <!-- Header Section -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F7F7F7"
+        android:padding="16dp">
+
+        <!-- App Logo -->
+        <ImageView
+            android:id="@+id/image_logo_chkt"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:contentDescription="Petsy Logo"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo_petsy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Header -->
+        <LinearLayout
+            android:id="@+id/layout_header_chkt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_logo_chkt">
+
+            <!-- Back Icon -->
+            <ImageView
+                android:id="@+id/icon_back_chkt"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/white_bg_two"
+                android:padding="6dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_arrow_back"
+                app:tint="#333333" />
+
+            <!-- Checkout text -->
+            <TextView
+                android:id="@+id/text_screen_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Tracking Details"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Product Header Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <!-- Product Image -->
+                    <ImageView
+                        android:id="@+id/product_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:background="#F5F5F5"
+                        android:contentDescription="Dog Food Package"
+                        android:padding="8dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/img_cooked_dog_food" />
+
+                    <!-- Product Details -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <!-- Brand Name -->
+
+                        <!-- Product Name -->
+                        <TextView
+                            android:id="@+id/product_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Cooked Dog Food"
+                            android:textColor="#000000"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <!-- Product Description -->
+                        <TextView
+                            android:id="@+id/product_description"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Chicken and White Rice, 500 grams"
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
+                        <!-- Order ID -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ID Order : "
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/order_id"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="1324576809"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_marginStart="4dp"
+                                android:contentDescription="Copy Order ID"
+                                android:src="@drawable/ic_copy"
+                                app:tint="#4CAF50" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Shipping Information Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="6dp"
+                        android:background="#002855" />
+
+                    <!-- From Address -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="16dp">
+
+                        <!-- Location Icon -->
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="12dp"
+                            android:layout_marginTop="2dp"
+                            android:contentDescription="From Location"
+                            android:src="@drawable/ic_location"
+                            app:tint="#4CAF50" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="From"
+                                android:textColor="#888888"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/from_address"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="402 Bugayong Street Cabugao Molasagul Pangasinan Philippines"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                android:lineSpacingExtra="2dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Send To Address -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="16dp">
+
+                        <!-- Truck Icon -->
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="12dp"
+                            android:layout_marginTop="2dp"
+                            android:contentDescription="Send To Location"
+                            android:src="@drawable/ic_to_recieve"
+                            app:tint="#339967" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Send To"
+                                android:textColor="#888888"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/send_to_address"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Block 2 Lot 17 Estrella Homes Phase 1 Toolong Kawit Cavite"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                android:lineSpacingExtra="2dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Weight Information -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <!-- Package Icon -->
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="12dp"
+                            android:layout_marginTop="2dp"
+                            android:contentDescription="Package Weight"
+                            android:src="@drawable/ic_to_ship"
+                            app:tint="#339967" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Weight"
+                                android:textColor="#888888"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/package_weight"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="500 grams"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="6dp"
+                        android:background="#002855" />
+
+
+                </LinearLayout>
+
+
+
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Tracking Status Card -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <!-- Status Item 1 - Being Packaged (Active) -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="20dp">
+
+                            <!-- Status Indicator -->
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginEnd="16dp"
+                                android:gravity="center_horizontal">
+
+                                <!-- Green Dot -->
+                                <View
+                                    android:layout_width="12dp"
+                                    android:layout_height="12dp"
+                                    android:background="@drawable/ic_green_circle" />
+
+                                <!-- Connecting Line -->
+                                <View
+                                    android:layout_width="2dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginTop="4dp"
+                                    android:background="#4CAF50" />
+
+                            </LinearLayout>
+
+                            <!-- Status Content -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Being Packaged"
+                                    android:textColor="#000000"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="Waiting for the order to be sent to the delivery service."
+                                    android:textColor="#666666"
+                                    android:textSize="14sp"
+                                    android:lineSpacingExtra="2dp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <!-- Status Item 2 - Orders in Delivery (Active) -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="20dp">
+
+                            <!-- Status Indicator -->
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginEnd="16dp"
+                                android:gravity="center_horizontal">
+
+                                <!-- Green Dot -->
+                                <View
+                                    android:layout_width="12dp"
+                                    android:layout_height="12dp"
+                                    android:background="@drawable/ic_green_circle" />
+
+                                <!-- Connecting Line -->
+                                <View
+                                    android:layout_width="2dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginTop="4dp"
+                                    android:background="#4CAF50" />
+
+                            </LinearLayout>
+
+                            <!-- Status Content -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Orders in Delivery"
+                                    android:textColor="#000000"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="Orders are being shipped to transit locations."
+                                    android:textColor="#666666"
+                                    android:textSize="14sp"
+                                    android:lineSpacingExtra="2dp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <!-- Status Item 3 - Orders in Delivery (Active) -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="20dp">
+
+                            <!-- Status Indicator -->
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginEnd="16dp"
+                                android:gravity="center_horizontal">
+
+                                <!-- Green Dot -->
+                                <View
+                                    android:layout_width="12dp"
+                                    android:layout_height="12dp"
+                                    android:background="@drawable/ic_green_circle" />
+
+                                <!-- Connecting Line -->
+                                <View
+                                    android:layout_width="2dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginTop="4dp"
+                                    android:background="#4CAF50" />
+
+                            </LinearLayout>
+
+                            <!-- Status Content -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Orders in Delivery"
+                                    android:textColor="#000000"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="Orders are being shipped to transit locations."
+                                    android:textColor="#666666"
+                                    android:textSize="14sp"
+                                    android:lineSpacingExtra="2dp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <!-- Status Item 4 - Towards Destination (Pending) -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <!-- Status Indicator -->
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginEnd="16dp"
+                                android:gravity="center_horizontal">
+
+                                <!-- Gray Circle -->
+                                <View
+                                    android:layout_width="12dp"
+                                    android:layout_height="12dp"
+                                    android:background="@drawable/ic_green_circle" />
+
+                            </LinearLayout>
+
+                            <!-- Status Content -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Towards Destination"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="Order to destination address."
+                                    android:textColor="#CCCCCC"
+                                    android:textSize="14sp"
+                                    android:lineSpacingExtra="2dp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Add Address"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:background="@drawable/green_button_bg" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
