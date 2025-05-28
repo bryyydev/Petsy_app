@@ -5,309 +5,275 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/profile_bg"
-    >
+    android:background="@drawable/profile_bg">
 
     <!-- Header Section with Gradient Overlay -->
+
+    <!-- Status Bar Spacer -->
     <View
         android:id="@+id/header_gradient"
         android:layout_width="0dp"
-        android:layout_height="280dp"
+        android:layout_height="320dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Status Bar Spacer -->
     <View
         android:id="@+id/status_bar_spacer"
         android:layout_width="match_parent"
         android:layout_height="24dp"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Top Action Bar -->
+    <!-- Centered Logo -->
+
+    <!-- Action Icons -->
+    <ImageView
+        android:id="@+id/prof_logo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:contentDescription="Petsy Logo"
+        android:scaleType="fitCenter"
+        android:src="@drawable/petsy_logo_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
-        android:id="@+id/top_action_bar"
-        android:layout_width="0dp"
+        android:id="@+id/action_icons"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center_vertical"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/status_bar_spacer">
 
-        <!-- Logo -->
-        <ImageView
-            android:id="@+id/prof_logo"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:contentDescription="Petsy Logo"
-            android:scaleType="fitCenter"
-            android:src="@drawable/petsy_logo_white"
-            android:layout_weight="1" />
+        <androidx.cardview.widget.CardView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="12dp"
+            app:cardBackgroundColor="#40FFFFFF"
+            app:cardCornerRadius="22dp"
+            app:cardElevation="0dp">
 
-        <!-- Action Icons -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/iv_message"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:contentDescription="Message"
+                android:src="@drawable/ic_message"
+                android:tint="@color/white" />
+        </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:layout_marginEnd="12dp"
-                app:cardBackgroundColor="#40FFFFFF"
-                app:cardCornerRadius="22dp"
-                app:cardElevation="8dp">
+        <androidx.cardview.widget.CardView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            app:cardBackgroundColor="#40FFFFFF"
+            app:cardCornerRadius="22dp"
+            app:cardElevation="0dp">
 
-                <ImageView
-                    android:id="@+id/iv_message"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:contentDescription="Message"
-                    android:src="@drawable/ic_message"
-                    android:tint="@color/white" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                app:cardBackgroundColor="#40FFFFFF"
-                app:cardCornerRadius="22dp"
-                app:cardElevation="8dp">
-
-                <ImageView
-                    android:id="@+id/iv_settings"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:contentDescription="Settings"
-                    android:src="@drawable/ic_settings"
-                    android:tint="@color/white" />
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/iv_settings"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:contentDescription="Settings"
+                android:src="@drawable/ic_settings"
+                android:tint="@color/white" />
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
-    <!-- Profile Section -->
+    <!-- Centered Profile Image - Made Smaller -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/profile_image_container"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="24dp"
+        app:cardCornerRadius="50dp"
+        app:cardElevation="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/prof_logo">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profileImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="Profile Image"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_pf"
+            app:shapeAppearanceOverlay="@style/CircleImage" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- User Info - Centered -->
     <LinearLayout
-        android:id="@+id/profile_section"
-        android:layout_width="0dp"
+        android:id="@+id/user_info_section"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_action_bar">
+        app:layout_constraintTop_toBottomOf="@id/profile_image_container">
 
-        <!-- Profile Image with Ring -->
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="Jaime Yee"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="sans-serif"
+            android:text="@aymjmy"
+            android:textColor="#C0FFFFFF"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <!-- Stats Section - Horizontal Layout -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/stats_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="28dp"
+        app:cardBackgroundColor="#30FFFFFF"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_info_section">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="20dp">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/profile_image_container"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:cardCornerRadius="50dp"
-                app:cardElevation="12dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/profileImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:contentDescription="Profile Image"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/default_pf"
-                    app:shapeAppearanceOverlay="@style/CircleImage" />
-            </androidx.cardview.widget.CardView>
-
-            <!-- Stats Grid -->
+            <!-- Followers -->
             <LinearLayout
-                android:id="@+id/stats_container"
+                android:id="@+id/followers_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/profile_image_container"
-                app:layout_constraintTop_toTopOf="@id/profile_image_container"
-                app:layout_constraintBottom_toBottomOf="@id/profile_image_container">
-
-                <!-- Followers -->
-                <LinearLayout
-                    android:id="@+id/followers_layout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_followers_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:fontFamily="sans-serif-medium" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Followers"
-                        android:textColor="#E0FFFFFF"
-                        android:textSize="11sp"
-                        android:fontFamily="sans-serif" />
-                </LinearLayout>
-
-                <!-- Followed -->
-                <LinearLayout
-                    android:id="@+id/followed_layout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_followed_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:fontFamily="sans-serif-medium" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Following"
-                        android:textColor="#E0FFFFFF"
-                        android:textSize="11sp"
-                        android:fontFamily="sans-serif" />
-                </LinearLayout>
-
-                <!-- Orders -->
-                <LinearLayout
-                    android:id="@+id/ordered_layout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_orders_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:fontFamily="sans-serif-medium" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Orders"
-                        android:textColor="#E0FFFFFF"
-                        android:textSize="11sp"
-                        android:fontFamily="sans-serif" />
-                </LinearLayout>
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!-- User Info -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Jaime Yee"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:fontFamily="sans-serif-medium" />
-
-            <TextView
-                android:id="@+id/tv_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@aymjmy"
-                android:textColor="#C0FFFFFF"
-                android:textSize="16sp"
-                android:fontFamily="sans-serif" />
-        </LinearLayout>
-
-        <!-- Action Buttons -->
-        <LinearLayout
-            android:id="@+id/button_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:orientation="horizontal">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="44dp"
                 android:layout_weight="1"
-                android:layout_marginEnd="8dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="22dp"
-                app:cardElevation="4dp">
-
-                <Button
-                    android:id="@+id/btn_edit_profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:text="Edit Profile"
-                    android:textColor="#1A1A1A"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:fontFamily="sans-serif-medium" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                app:cardBackgroundColor="#40FFFFFF"
-                app:cardCornerRadius="22dp"
-                app:cardElevation="4dp">
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
 
                 <TextView
-                    android:id="@+id/btn_start_selling"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:text="Start Selling"
+                    android:id="@+id/tv_followers_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="0"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:fontFamily="sans-serif-medium" />
-            </androidx.cardview.widget.CardView>
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Followers"
+                    android:textColor="#E0FFFFFF"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="8dp"
+                android:background="#40FFFFFF" />
+
+            <!-- Following -->
+            <LinearLayout
+                android:id="@+id/following_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/tv_following_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Following"
+                    android:textColor="#E0FFFFFF"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="8dp"
+                android:background="#40FFFFFF" />
+
+            <!-- Orders -->
+            <LinearLayout
+                android:id="@+id/orders_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/tv_orders_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Orders"
+                    android:textColor="#E0FFFFFF"
+                    android:textSize="12sp" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <!-- Menu Section -->
     <androidx.cardview.widget.CardView
@@ -315,13 +281,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="20dp"
         app:cardElevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_section">
+        app:layout_constraintTop_toBottomOf="@id/stats_card">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -329,44 +295,60 @@
             android:orientation="vertical"
             android:padding="20dp">
 
+            <!-- Menu Header -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Account Settings"
+                android:textColor="#1A1A1A"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
             <!-- Personal Info -->
             <LinearLayout
                 android:id="@+id/personal_info_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingVertical="16dp">
+                android:paddingVertical="12dp">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/ic_profile_unselected"
-                    android:tint="#666666" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="12dp"
+                    app:cardBackgroundColor="#F8F9FA"
+                    app:cardCornerRadius="18dp"
+                    app:cardElevation="0dp">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_profile_unselected"
+                        android:tint="#666666" />
+                </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="sans-serif-medium"
                     android:text="Personal Information"
                     android:textColor="#1A1A1A"
-                    android:textSize="16sp"
-                    android:fontFamily="sans-serif-medium" />
+                    android:textSize="14sp" />
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:src="@drawable/ic_arrow_right"
                     android:tint="#CCCCCC" />
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="4dp"
-                android:background="#F0F0F0" />
 
             <!-- Shipping Address -->
             <LinearLayout
@@ -374,38 +356,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingVertical="16dp">
+                android:paddingVertical="12dp">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/ic_location"
-                    android:tint="#666666" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="12dp"
+                    app:cardBackgroundColor="#F8F9FA"
+                    app:cardCornerRadius="18dp"
+                    app:cardElevation="0dp">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_location"
+                        android:tint="#666666" />
+                </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="sans-serif-medium"
                     android:text="Shipping Address"
                     android:textColor="#1A1A1A"
-                    android:textSize="16sp"
-                    android:fontFamily="sans-serif-medium" />
+                    android:textSize="14sp" />
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:src="@drawable/ic_arrow_right"
                     android:tint="#CCCCCC" />
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="4dp"
-                android:background="#F0F0F0" />
 
             <!-- Payment Methods -->
             <LinearLayout
@@ -413,38 +400,44 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingVertical="16dp">
+                android:paddingVertical="12dp">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/ic_payment"
-                    android:tint="#666666" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="12dp"
+                    app:cardBackgroundColor="#F8F9FA"
+                    app:cardCornerRadius="18dp"
+                    app:cardElevation="0dp">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_payment"
+                        android:tint="#666666" />
+                </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="sans-serif-medium"
                     android:text="Payment Methods"
                     android:textColor="#1A1A1A"
-                    android:textSize="16sp"
-                    android:fontFamily="sans-serif-medium" />
+                    android:textSize="14sp" />
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:src="@drawable/ic_arrow_right"
                     android:tint="#CCCCCC" />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

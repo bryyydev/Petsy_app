@@ -179,7 +179,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
     }
+// Add this method to your DatabaseHelper class
 
+    // Update user address information (for Edit_Address activity)
+    public boolean updateUserAddress(String email, String province, String town, String barangay, String houseStreet) {
+        SQLiteDatabase db = null;
+        try {
+            db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(COL_PROVINCE, province);
+            values.put(COL_TOWN, town);
+            values.put(COL_BARANGAY, barangay);
+            values.put(COL_HOUSE_STREET, houseStreet);
+
+            int rowsAffected = db.update(TABLE_NAME, values, COL_EMAIL + "=?", new String[]{email});
+            Log.d("DatabaseHelper", "Update user address result: " + rowsAffected + " rows affected");
+            Log.d("DatabaseHelper", "Updated address for email: " + email +
+                    " - Province: " + province + ", Town: " + town +
+                    ", Barangay: " + barangay + ", House/Street: " + houseStreet);
+
+            return rowsAffected > 0;
+        } catch (Exception e) {
+            Log.e("DatabaseHelper", "Error updating user address: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (db != null) {
+                db.close();
+            }
+        }
+    }
     // Get complete user information by email
     public UserInfo getUserByEmail(String email) {
         SQLiteDatabase db = null;

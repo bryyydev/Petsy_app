@@ -110,19 +110,20 @@ public class Edit_Info extends AppCompatActivity {
         provinceTownMap.put("La Union", Arrays.asList("San Fernando City", "Agoo", "Bauang"));
         provinceTownMap.put("Pangasinan", Arrays.asList("Dagupan City", "Urdaneta", "Alaminos"));
 
+
         // Town and Barangay mapping
-        townBarangayMap.put("Laoag City", Arrays.asList("Barangay 1", "Barangay 2", "Barangay 3"));
-        townBarangayMap.put("Batac", Arrays.asList("Barangay A", "Barangay B", "Barangay C"));
-        townBarangayMap.put("Paoay", Arrays.asList("Barangay X", "Barangay Y"));
-        townBarangayMap.put("Vigan City", Arrays.asList("Barangay I", "Barangay II", "Barangay III"));
-        townBarangayMap.put("Candon", Arrays.asList("Barangay Alpha", "Barangay Beta"));
-        townBarangayMap.put("Narvacan", Arrays.asList("Barangay Gamma", "Barangay Delta"));
-        townBarangayMap.put("San Fernando City", Arrays.asList("Barangay Norte", "Barangay Sur"));
-        townBarangayMap.put("Agoo", Arrays.asList("Barangay East", "Barangay West"));
-        townBarangayMap.put("Bauang", Arrays.asList("Barangay Centro", "Barangay Poblacion"));
-        townBarangayMap.put("Dagupan City", Arrays.asList("Lucao", "Pantal", "Bonuan Gueset"));
-        townBarangayMap.put("Urdaneta", Arrays.asList("Barangay 1", "Barangay 2"));
-        townBarangayMap.put("Alaminos", Arrays.asList("Barangay Poblacion", "Barangay Tanaytay"));
+        townBarangayMap.put("Laoag City", Arrays.asList("San Lorenzo", "San Joaquina", "Nuestra Senora", "San Guillermo", "San Pedro"));
+        townBarangayMap.put("Batac", Arrays.asList("Ablan", "Acosta", "Baay", "Baligat", "Billoca"));
+        townBarangayMap.put("Paoay", Arrays.asList("Bacsil", "Cabagoan", "Cabangaran", "Calleguip", "Cayubog"));
+        townBarangayMap.put("Vigan City", Arrays.asList("Ayusan Norte", "Ayusan Sur"));
+        townBarangayMap.put("Candon", Arrays.asList("Campo", "Gabor", "Tocgo"));
+        townBarangayMap.put("Narvacan", Arrays.asList("Bulanos", "Cadacad"));
+        townBarangayMap.put("San Fernando City", Arrays.asList("Bacsil", "Bangcusay"));
+        townBarangayMap.put("Agoo", Arrays.asList("Ambalita", "Aringay"));
+        townBarangayMap.put("Bauang", Arrays.asList("Bacuit Norte", "Baccuit Sur"));
+        townBarangayMap.put("Dagupan City", Arrays.asList("Cabaroan", "Camalio", "Bonuan Gueset"));
+        townBarangayMap.put("Urdaneta", Arrays.asList("Bactad East", "Bayaoas", "Camnantiles", "Casantaan"));
+        townBarangayMap.put("Alaminos", Arrays.asList("Bisocol", "Cayucay"));
     }
 
     private void setupDropdowns() {

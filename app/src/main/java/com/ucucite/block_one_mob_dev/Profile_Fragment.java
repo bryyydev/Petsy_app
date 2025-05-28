@@ -18,7 +18,6 @@ import androidx.fragment.app.Fragment;
 public class Profile_Fragment extends Fragment {
 
     private TextView tvName, tvUsername;
-    private Button btnEditInfo;
     private LinearLayout shippingAddressItem, personalInfoItem, paymentMethodsItem;
     private DatabaseHelper dbHelper;
     private String email;
@@ -48,7 +47,7 @@ public class Profile_Fragment extends Fragment {
         // Initialize views
         tvName = view.findViewById(R.id.tv_name);
         tvUsername = view.findViewById(R.id.tv_username);
-        btnEditInfo = view.findViewById(R.id.btn_edit_profile);
+
         shippingAddressItem = view.findViewById(R.id.shipping_address_item);
         personalInfoItem = view.findViewById(R.id.personal_info_item);
         paymentMethodsItem = view.findViewById(R.id.payment_methods_item);
@@ -62,11 +61,7 @@ public class Profile_Fragment extends Fragment {
         }
 
         // Set click listeners
-        btnEditInfo.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), Edit_Info.class);
-            intent.putExtra("email", email);
-            startActivity(intent);
-        });
+
 
         // Add click listener for shipping address
         shippingAddressItem.setOnClickListener(v -> {
@@ -75,7 +70,7 @@ public class Profile_Fragment extends Fragment {
             startActivity(intent);
         });
 
-        // Add click listener for personal information
+        // Add click listener for personal informationadmin
         personalInfoItem.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), Edit_Info.class);
             intent.putExtra("email", email);

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="Edit_Info">
+      <entry key="Edit_Address">
         <State />
       </entry>
       <entry key="Log_in">
@@ -13,25 +13,38 @@
       </entry>
       <entry key="Sign_up">
         <State>
-          <runningDeviceTargetSelectedWithDropDown>
+          <targetSelectedWithDropDown>
             <Target>
-              <type value="RUNNING_DEVICE_TARGET" />
+              <type value="QUICK_BOOT_TARGET" />
               <deviceKey>
                 <Key>
-                  <type value="SERIAL_NUMBER" />
-                  <value value="HYLZQWSK49BYH6A6" />
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\jaime\.android\avd\oppo_API_25.avd" />
                 </Key>
               </deviceKey>
             </Target>
-          </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2025-05-26T13:39:00.972674300Z" />
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2025-05-28T10:39:59.484393400Z" />
         </State>
       </entry>
       <entry key="app">
         <State />
       </entry>
       <entry key="nav_bar">
-        <State />
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\jaime\.android\avd\oppo_API_25.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2025-05-28T05:02:52.682277200Z" />
+        </State>
       </entry>
     </value>
   </component>
