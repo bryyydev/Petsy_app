@@ -60,6 +60,7 @@ public class CartManager {
         return total;
     }
 
+
     public int getTotalItems() {
         int total = 0;
         for (CartItem item : cartItems) {

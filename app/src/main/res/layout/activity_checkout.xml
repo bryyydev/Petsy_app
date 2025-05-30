@@ -171,6 +171,7 @@
 
             <!-- Product Card -->
             <LinearLayout
+                android:id="@+id/product_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -179,6 +180,7 @@
                 android:padding="8dp">
 
                 <ImageView
+                    android:id="@+id/product_image"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:contentDescription="Product Image"
@@ -194,6 +196,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/product_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Cooked Dog Food"
@@ -202,6 +205,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/product_brand"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -217,6 +221,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/product_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="₱ 220.00"
@@ -226,6 +231,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/product_quantity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
@@ -300,7 +306,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="₱ 50.00"
+                        android:text="₱ 100.00"
                         android:textColor="#000000"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -348,6 +354,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/subtotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="₱ 270.00"
@@ -551,6 +558,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="₱ 270.00"
