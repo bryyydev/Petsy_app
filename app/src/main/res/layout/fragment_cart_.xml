@@ -35,6 +35,7 @@
             android:paddingEnd="16dp">
 
             <ImageView
+                android:id="@+id/btn_back"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:background="@drawable/white_bg_two"
@@ -96,289 +97,73 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
-            <!-- Product Cards Container -->
+            <!-- Empty Cart Message -->
             <LinearLayout
-                android:id="@+id/productCards"
+                android:id="@+id/empty_cart_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintTop_toTopOf="parent">
+                android:gravity="center"
+                android:layout_marginTop="50dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
-                <!-- Product Card 1 -->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_cart"
+                    android:alpha="0.3"
+                    android:layout_marginBottom="16dp" />
+
+                <TextView
+                    android:id="@+id/empty_cart_message"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:elevation="4dp"
-                    app:cardCornerRadius="12dp">
+                    android:text="Your cart is empty"
+                    android:textAlignment="center"
+                    android:textColor="#999999"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:layout_width="373dp"
-                        android:layout_height="125dp"
-                        android:orientation="horizontal"
-                        android:padding="12dp">
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/sustainably_yours" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Plant Based Cat Litter"
-                                android:textColor="#333"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Natural Balance"
-                                android:textColor="#1E8E55"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Size: 500 grams"
-                                android:textColor="#777"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="₱ 150.00"
-                                android:textColor="#000"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:src="@drawable/ic_minus"
-                                    app:tint="#1E8E55" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="6dp"
-                                    android:text="2"
-                                    android:textColor="#333"
-                                    android:textSize="14sp" />
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:layout_marginStart="6dp"
-                                    android:src="@drawable/ic_add"
-                                    app:tint="#1E8E55" />
-                            </LinearLayout>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <!-- Product Card 2 -->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:elevation="4dp"
-                    app:cardCornerRadius="12dp">
+                    android:text="Add some products to get started"
+                    android:textAlignment="center"
+                    android:textColor="#CCCCCC"
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="12dp">
+            <!-- RecyclerView for Cart Items -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_cart_items"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:listitem="@layout/item_cart_product" />
 
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/pocket_trainers" />
+            <!-- Cart Summary Section -->
+            <LinearLayout
+                android:id="@+id/cart_summary_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/recycler_cart_items"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Plant Based Cat Litter"
-                                android:textColor="#333"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Natural Balance"
-                                android:textColor="#1E8E55"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Size: 500 grams"
-                                android:textColor="#777"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="₱ 190.00"
-                                android:textColor="#000"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_marginTop="4dp"
-                                android:gravity="center_vertical">
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:src="@drawable/ic_minus"
-                                    app:tint="#1E8E55" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="6dp"
-                                    android:text="2"
-                                    android:textColor="#333"
-                                    android:textSize="14sp" />
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:layout_marginStart="6dp"
-                                    android:src="@drawable/ic_add"
-                                    app:tint="#1E8E55" />
-                            </LinearLayout>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:elevation="4dp"
-                    app:cardCornerRadius="12dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="12dp">
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/pocket_trainers" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Plant Based Cat Litter"
-                                android:textColor="#333"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Natural Balance"
-                                android:textColor="#1E8E55"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Size: 500 grams"
-                                android:textColor="#777"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="₱ 190.00"
-                                android:textColor="#000"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_marginTop="4dp"
-                                android:gravity="center_vertical">
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:src="@drawable/ic_minus"
-                                    app:tint="#1E8E55" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="6dp"
-                                    android:text="2"
-                                    android:textColor="#333"
-                                    android:textSize="14sp" />
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:layout_marginStart="6dp"
-                                    android:src="@drawable/ic_add"
-                                    app:tint="#1E8E55" />
-                            </LinearLayout>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-
-                <!-- More product cards... -->
-
-                <!-- Subtotal -->
+                <!-- Promo Code Section -->
                 <LinearLayout
                     android:id="@+id/promo_code_layout"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:layout_marginTop="20dp"
                     android:background="@drawable/bg_white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
@@ -418,7 +203,9 @@
                         android:textSize="14sp" />
                 </LinearLayout>
 
+                <!-- Totals Section -->
                 <LinearLayout
+                    android:id="@+id/totals_section"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -443,7 +230,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="end"
-                            android:text="₱1250.00"
+                            android:text="₱0.00"
                             android:textColor="#333333" />
                     </LinearLayout>
 
@@ -491,15 +278,17 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="end"
-                            android:text="₱1350.00"
+                            android:text="₱0.00"
                             android:textColor="#000000"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
 
+                <!-- Checkout Button -->
                 <Button
+                    android:id="@+id/btn_checkout"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="48dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/green_button_bg"
                     android:text="Checkout"

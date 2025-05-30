@@ -66,6 +66,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Details"
+            android:exported="true"/>
         <activity
             android:name=".MyPagerAdapter"
             android:exported="false" /> <!-- SplashScreen pages, possibly not used, set according to need -->
