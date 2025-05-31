@@ -1,12 +1,45 @@
 package com.ucucite.block_one_mob_dev;
 
-public class CartItem {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class CartItem implements Parcelable {
     private Product product;
     private int quantity;
 
     public CartItem(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
+    }
+
+    // Parcelable constructor
+    protected CartItem(Parcel in) {
+        product = in.readParcelable(Product.class.getClassLoader());
+        quantity = in.readInt();
+    }
+
+    // Parcelable Creator
+    public static final Creator<CartItem> CREATOR = new Creator<CartItem>() {
+        @Override
+        public CartItem createFromParcel(Parcel in) {
+            return new CartItem(in);
+        }
+
+        @Override
+        public CartItem[] newArray(int size) {
+            return new CartItem[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(product, flags);
+        dest.writeInt(quantity);
     }
 
     public Product getProduct() {

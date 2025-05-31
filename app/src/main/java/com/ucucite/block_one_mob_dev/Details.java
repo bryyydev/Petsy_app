@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -184,7 +183,7 @@ public class Details extends AppCompatActivity {
                 return;
             }
 
-            Intent checkoutIntent = new Intent(Details.this, Checkout.class);
+            Intent checkoutIntent = new Intent(Details.this, DetailsCheckout.class);
             checkoutIntent.putExtra("single_product", currentProduct);
             checkoutIntent.putExtra("product_quantity", quantity);
             checkoutIntent.putExtra("checkout_message", "Direct checkout for " + currentProduct.getName());

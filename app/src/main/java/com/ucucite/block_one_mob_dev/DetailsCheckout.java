@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import java.text.DecimalFormat;
 
-public class Checkout extends AppCompatActivity {
+public class DetailsCheckout extends AppCompatActivity {
 
     private static final String TAG = "Checkout";
 
@@ -35,7 +35,7 @@ public class Checkout extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_checkout);
+        setContentView(R.layout.activity_details_checkout);
 
         try {
             // Get product data from intent
