@@ -23,7 +23,7 @@
             android:exported="false" />
         <activity
             android:name=".DetailsCheckout"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".add_address"
             android:exported="false" />

@@ -1,6 +1,7 @@
 package com.ucucite.block_one_mob_dev;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import java.text.DecimalFormat;
 import android.os.Parcelable;
 
@@ -89,7 +91,10 @@ public class CartCheckout extends AppCompatActivity {
                     ", productsContainer: " + (productsContainer != null) +
                     ", tvSubtotal: " + (tvSubtotal != null) +
                     ", tvTotal: " + (tvTotal != null) +
-                    ", btnCheckout: " + (btnCheckout != null));
+                    ", btnCheckout: " + (btnCheckout != null) +
+                    ", cashOnDeliveryCard: " + (cashOnDeliveryCard != null) +
+                    ", bankCardCard: " + (bankCardCard != null) +
+                    ", gcashCard: " + (gcashCard != null));
 
         } catch (Exception e) {
             Log.e(TAG, "Error in initViews: " + e.getMessage(), e);
@@ -202,15 +207,24 @@ public class CartCheckout extends AppCompatActivity {
 
             if (cashOnDeliveryCard != null) {
                 cashOnDeliveryCard.setCardElevation(defaultElevation);
-                cashOnDeliveryCard.setCardBackgroundColor(getResources().getColor(android.R.color.white));
+                cashOnDeliveryCard.setCardBackgroundColor(
+                        ContextCompat.getColor(this, android.R.color.white));
+                // Reset text colors to default
+                resetCardTextColors(cashOnDeliveryCard);
             }
             if (bankCardCard != null) {
                 bankCardCard.setCardElevation(defaultElevation);
-                bankCardCard.setCardBackgroundColor(getResources().getColor(android.R.color.white));
+                bankCardCard.setCardBackgroundColor(
+                        ContextCompat.getColor(this, android.R.color.white));
+                // Reset text colors to default
+                resetCardTextColors(bankCardCard);
             }
             if (gcashCard != null) {
                 gcashCard.setCardElevation(defaultElevation);
-                gcashCard.setCardBackgroundColor(getResources().getColor(android.R.color.white));
+                gcashCard.setCardBackgroundColor(
+                        ContextCompat.getColor(this, android.R.color.white));
+                // Reset text colors to default
+                resetCardTextColors(gcashCard);
             }
         } catch (Exception e) {
             Log.e(TAG, "Error in resetPaymentMethodCards: " + e.getMessage(), e);
@@ -222,10 +236,82 @@ public class CartCheckout extends AppCompatActivity {
             if (selectedCard != null) {
                 float highlightElevation = 8 * getResources().getDisplayMetrics().density;
                 selectedCard.setCardElevation(highlightElevation);
-                selectedCard.setCardBackgroundColor(getResources().getColor(android.R.color.holo_blue_bright));
+
+                // Use a more visible green color similar to Cash on Delivery
+                selectedCard.setCardBackgroundColor(
+                        ContextCompat.getColor(this, R.color.selected_payment_bg));
+
+                // Change text colors to the selected color #339967
+                setCardTextColors(selectedCard);
             }
         } catch (Exception e) {
             Log.e(TAG, "Error in highlightSelectedPaymentMethod: " + e.getMessage(), e);
+        }
+    }
+
+    private void resetCardTextColors(CardView card) {
+        try {
+            LinearLayout container = (LinearLayout) card.getChildAt(0);
+            if (container != null) {
+                for (int i = 0; i < container.getChildCount(); i++) {
+                    if (container.getChildAt(i) instanceof TextView) {
+                        TextView textView = (TextView) container.getChildAt(i);
+                        // Reset to original colors based on text content
+                        String text = textView.getText().toString();
+                        if (text.contains("💵") || text.contains("🏦") || text.contains("GCash")) {
+                            // Title text - black
+                            textView.setTextColor(ContextCompat.getColor(this, android.R.color.black));
+                        } else {
+                            // Description text - gray
+                            textView.setTextColor(Color.parseColor("#666666"));
+                        }
+                    } else if (container.getChildAt(i) instanceof LinearLayout) {
+                        // Handle nested LinearLayouts (like in GCash card)
+                        LinearLayout nestedLayout = (LinearLayout) container.getChildAt(i);
+                        for (int j = 0; j < nestedLayout.getChildCount(); j++) {
+                            if (nestedLayout.getChildAt(j) instanceof TextView) {
+                                TextView textView = (TextView) nestedLayout.getChildAt(j);
+                                String text = textView.getText().toString();
+                                if (text.equals("GCash")) {
+                                    textView.setTextColor(ContextCompat.getColor(this, android.R.color.black));
+                                } else {
+                                    textView.setTextColor(Color.parseColor("#666666"));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error in resetCardTextColors: " + e.getMessage(), e);
+        }
+    }
+
+    private void setCardTextColors(CardView card) {
+        try {
+            // Define the selected color #339967
+            int selectedColor = Color.parseColor("#339967");
+
+            LinearLayout container = (LinearLayout) card.getChildAt(0);
+            if (container != null) {
+                for (int i = 0; i < container.getChildCount(); i++) {
+                    if (container.getChildAt(i) instanceof TextView) {
+                        TextView textView = (TextView) container.getChildAt(i);
+                        textView.setTextColor(selectedColor);
+                    } else if (container.getChildAt(i) instanceof LinearLayout) {
+                        // Handle nested LinearLayouts (like in GCash card)
+                        LinearLayout nestedLayout = (LinearLayout) container.getChildAt(i);
+                        for (int j = 0; j < nestedLayout.getChildCount(); j++) {
+                            if (nestedLayout.getChildAt(j) instanceof TextView) {
+                                TextView textView = (TextView) nestedLayout.getChildAt(j);
+                                textView.setTextColor(selectedColor);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error in setCardTextColors: " + e.getMessage(), e);
         }
     }
 
