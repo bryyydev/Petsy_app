@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -60,29 +59,25 @@ public class Profile_Fragment extends Fragment {
             tvUsername.setText("@" + username);
         }
 
-        // Set click listeners
-
-
-        // Add click listener for shipping address
+        // Set click listener for Shipping Address
         shippingAddressItem.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), Shipping_Address.class);
             intent.putExtra("email", email);
             startActivity(intent);
         });
 
-        // Add click listener for personal informationadmin
+        // Set click listener for Personal Information
         personalInfoItem.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), Edit_Info.class);
             intent.putExtra("email", email);
             startActivity(intent);
         });
 
-        // Add click listener for payment methods (if you have a Payment activity)
+        // Set click listener for Payment Methods
         paymentMethodsItem.setOnClickListener(v -> {
-            // Uncomment when you have a Payment Methods activity
-            // Intent intent = new Intent(getActivity(), Payment_Methods.class);
-            // intent.putExtra("email", email);
-            // startActivity(intent);
+            Intent intent = new Intent(getActivity(), Payment_Methods.class);
+            intent.putExtra("email", email);
+            startActivity(intent);
         });
     }
 
