@@ -105,7 +105,7 @@
         <!-- Authentication activities -->
         <activity
             android:name=".Sign_up"
-            android:exported="false" />
+            android:exported="true" />
 
         <activity
             android:name=".Log_in"

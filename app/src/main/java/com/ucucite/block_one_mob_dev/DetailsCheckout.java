@@ -1,6 +1,7 @@
 package com.ucucite.block_one_mob_dev;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +18,7 @@ import java.text.DecimalFormat;
 
 public class DetailsCheckout extends AppCompatActivity {
 
-    private static final String TAG = "Checkout";
+    private static final String TAG = "DetailsCheckout";
 
     // UI Components
     private ImageView iconBack;
@@ -47,12 +48,9 @@ public class DetailsCheckout extends AppCompatActivity {
     private String selectedPaymentMethod = "Cash on Delivery"; // Default
     private DecimalFormat df = new DecimalFormat("₱0.00");
 
-    // User data variables
-    private String userEmail;
-    private String userStreetBarangay;
-    private String userMunicipalityProvince;
-    private String userFullName;
-    private String userPhoneNumber;
+    // Database and user session
+    private DatabaseHelper databaseHelper;
+    private String currentUserEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +58,13 @@ public class DetailsCheckout extends AppCompatActivity {
         setContentView(R.layout.activity_details_checkout);
 
         try {
-            // Get product data and user data from intent
+            // Initialize database helper
+            databaseHelper = new DatabaseHelper(this);
+
+            // Get current user email from SharedPreferences
+            getCurrentUserEmail();
+
+            // Get product data from intent
             getDataFromIntent();
 
             // Initialize views
@@ -72,8 +76,8 @@ public class DetailsCheckout extends AppCompatActivity {
             // Update UI with product data
             updateProductUI();
 
-            // Update UI with user data
-            updateUserUI();
+            // Update UI with user data from database
+            displayUserInfo();
 
             // Calculate and display totals
             calculateTotals();
@@ -82,6 +86,83 @@ public class DetailsCheckout extends AppCompatActivity {
             Log.e(TAG, "Error in onCreate: " + e.getMessage(), e);
             Toast.makeText(this, "Error loading checkout", Toast.LENGTH_SHORT).show();
             finish();
+        }
+    }
+
+    private void getCurrentUserEmail() {
+        try {
+            SharedPreferences prefs = getSharedPreferences("UserSession", MODE_PRIVATE);
+            currentUserEmail = prefs.getString("user_email", null);
+            Log.d(TAG, "Current user email: " + currentUserEmail);
+
+            if (currentUserEmail == null || currentUserEmail.isEmpty()) {
+                Toast.makeText(this, "User session not found. Please login again.", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error getting current user email: " + e.getMessage(), e);
+        }
+    }
+
+    private void displayUserInfo() {
+        try {
+            if (currentUserEmail == null) {
+                Log.w(TAG, "Current user email is null, cannot display user info");
+                return;
+            }
+
+            // Get user info from database
+            DatabaseHelper.UserInfo userInfo = databaseHelper.getUserByEmail(currentUserEmail);
+
+            if (userInfo == null) {
+                Log.w(TAG, "User info not found for email: " + currentUserEmail);
+                Toast.makeText(this, "User information not found", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Display user name
+            if (fullName != null) {
+                String userFullName = userInfo.getFullName();
+                if (userFullName.isEmpty()) {
+                    fullName.setText(userInfo.username != null ? userInfo.username : "Name not set");
+                } else {
+                    fullName.setText(userFullName);
+                }
+            }
+
+            // Display user phone
+            if (phoneNumber != null) {
+                if (userInfo.phoneNumber != null && !userInfo.phoneNumber.trim().isEmpty()) {
+                    phoneNumber.setText(userInfo.phoneNumber);
+                } else {
+                    phoneNumber.setText("Phone not set");
+                    phoneNumber.setTextColor(Color.parseColor("#FF6B6B")); // Red color to indicate missing info
+                }
+            }
+
+            // Display user address
+            if (fullAddress != null) {
+                String userFullAddress = userInfo.getFullAddress();
+                if (!userFullAddress.isEmpty()) {
+                    fullAddress.setText(userFullAddress);
+                } else {
+                    fullAddress.setText("Address not set");
+                    fullAddress.setTextColor(Color.parseColor("#FF6B6B")); // Red color to indicate missing info
+                }
+            }
+
+            // Check if profile is complete
+            boolean isProfileComplete = databaseHelper.isProfileComplete(currentUserEmail);
+            if (!isProfileComplete) {
+                Toast.makeText(this, "Please complete your profile information before checkout", Toast.LENGTH_LONG).show();
+                Log.w(TAG, "User profile is incomplete");
+            }
+
+            Log.d(TAG, "User info displayed successfully");
+
+        } catch (Exception e) {
+            Log.e(TAG, "Error displaying user info: " + e.getMessage(), e);
+            Toast.makeText(this, "Error loading user information", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -99,21 +180,9 @@ public class DetailsCheckout extends AppCompatActivity {
                     quantity = intent.getIntExtra("product_quantity", 1);
                 }
 
-                // Get user data from intent
-                userEmail = intent.getStringExtra("user_email");
-                userStreetBarangay = intent.getStringExtra("user_street_barangay");
-                userMunicipalityProvince = intent.getStringExtra("user_municipality_province");
-                userFullName = intent.getStringExtra("user_full_name");
-                userPhoneNumber = intent.getStringExtra("user_phone_number");
-
                 Log.d(TAG, "Product received: " + (product != null ? product.getName() : "null"));
                 Log.d(TAG, "Brand: " + (product != null ? product.getBrand() : "null"));
                 Log.d(TAG, "Quantity: " + quantity);
-                Log.d(TAG, "User data received in Checkout - Email: " + userEmail +
-                        ", Street/Barangay: " + userStreetBarangay +
-                        ", Municipality/Province: " + userMunicipalityProvince +
-                        ", Full Name: " + userFullName +
-                        ", Phone: " + userPhoneNumber);
 
                 if (product == null) {
                     Log.e(TAG, "Product is null after retrieval");
@@ -161,45 +230,6 @@ public class DetailsCheckout extends AppCompatActivity {
 
         } catch (Exception e) {
             Log.e(TAG, "Error initializing views: " + e.getMessage(), e);
-        }
-    }
-
-    private void updateUserUI() {
-        try {
-            // Update full name
-            if (fullName != null) {
-                if (userFullName != null && !userFullName.isEmpty()) {
-                    fullName.setText(userFullName);
-                } else {
-                    fullName.setText("Jaime Yee II"); // Default fallback
-                }
-            }
-
-            // Update full address
-            if (fullAddress != null) {
-                if (userStreetBarangay != null && userMunicipalityProvince != null) {
-                    String completeAddress = userStreetBarangay + "\n" + userMunicipalityProvince;
-                    fullAddress.setText(completeAddress);
-                } else {
-                    fullAddress.setText("Block 2 Lot 17 Estrella Homes Phase 1\nToclong Kawit Cavite"); // Default fallback
-                }
-            }
-
-            // Update phone number
-            if (phoneNumber != null) {
-                if (userPhoneNumber != null && !userPhoneNumber.isEmpty()) {
-                    phoneNumber.setText(userPhoneNumber);
-                } else {
-                    phoneNumber.setText("+639155371154"); // Default fallback
-                }
-            }
-
-            Log.d(TAG, "User UI updated successfully");
-            Log.d(TAG, "Displayed - Name: " + (fullName != null ? fullName.getText() : "null") +
-                    ", Phone: " + (phoneNumber != null ? phoneNumber.getText() : "null"));
-
-        } catch (Exception e) {
-            Log.e(TAG, "Error updating user UI: " + e.getMessage(), e);
         }
     }
 
@@ -480,10 +510,9 @@ public class DetailsCheckout extends AppCompatActivity {
                 return;
             }
 
-            // Validate user data before processing
-            if (userEmail == null || userEmail.isEmpty()) {
-                Toast.makeText(this, "User email is required for checkout", Toast.LENGTH_SHORT).show();
-                Log.w(TAG, "User email is missing");
+            // Check if user profile is complete before allowing checkout
+            if (currentUserEmail != null && !databaseHelper.isProfileComplete(currentUserEmail)) {
+                Toast.makeText(this, "Please complete your profile information first", Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -493,32 +522,57 @@ public class DetailsCheckout extends AppCompatActivity {
             double productPrice = extractPriceValue(product.getPrice());
             double totalAmount = (productPrice * quantity) + SHIPPING_FEE;
 
+            // Get user info for order processing
+            DatabaseHelper.UserInfo userInfo = databaseHelper.getUserByEmail(currentUserEmail);
+            String customerName = userInfo != null ? userInfo.getFullName() : "Unknown";
+            String customerPhone = userInfo != null ? userInfo.phoneNumber : "Not set";
+            String customerAddress = userInfo != null ? userInfo.getFullAddress() : "Not set";
+
             Log.d(TAG, "Processing checkout:");
             Log.d(TAG, "Payment method: " + selectedPaymentMethod);
             Log.d(TAG, "Product: " + product.getName());
             Log.d(TAG, "Brand: " + product.getBrand());
             Log.d(TAG, "Quantity: " + quantity);
             Log.d(TAG, "Total: " + df.format(totalAmount));
-            Log.d(TAG, "Delivery to: " + userStreetBarangay + ", " + userMunicipalityProvince);
-            Log.d(TAG, "Customer: " + userFullName);
-            Log.d(TAG, "Customer email: " + userEmail);
-            Log.d(TAG, "Customer phone: " + userPhoneNumber);
+            Log.d(TAG, "Customer: " + customerName);
+            Log.d(TAG, "Customer email: " + currentUserEmail);
+            Log.d(TAG, "Customer phone: " + customerPhone);
+            Log.d(TAG, "Delivery to: " + customerAddress);
 
-            // Simulate processing delay
+            // Disable checkout button to prevent double clicks
+            if (btnCheckout != null) {
+                btnCheckout.setEnabled(false);
+                btnCheckout.setText("Processing...");
+            }
+
+            // Simulate processing delay and save order
             if (btnCheckout != null) {
                 btnCheckout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         try {
+                            // Save the single product order using OrderDataManager
+                            DatabaseHelper.UserInfo userInfo = databaseHelper.getUserByEmail(currentUserEmail);
+                            String customerName = userInfo != null ? userInfo.getFullName() : "Unknown";
+
+                            // Add order to OrderDataManager
+                            OrderDataManager.addOrder(
+                                    DetailsCheckout.this,        // context
+                                    product.getName(),           // product name
+                                    product.getBrand(),          // brand
+                                    product.getPrice(),          // price
+                                    quantity,                    // quantity
+                                    product.getImageResource(),  // image resource
+                                    selectedPaymentMethod,       // payment method
+                                    customerName                 // customer name
+                            );
+
                             String orderSummary = "Order placed successfully!\n" +
                                     "Product: " + product.getName() + "\n" +
                                     "Brand: " + product.getBrand() + "\n" +
                                     "Quantity: " + quantity + "\n" +
                                     "Payment: " + selectedPaymentMethod + "\n" +
-                                    "Total: " + df.format(totalAmount) + "\n" +
-                                    "Customer: " + userFullName + "\n" +
-                                    "Phone: " + userPhoneNumber + "\n" +
-                                    "Delivery to: " + userStreetBarangay + ", " + userMunicipalityProvince;
+                                    "Total: " + df.format(totalAmount);
 
                             Toast.makeText(DetailsCheckout.this, orderSummary, Toast.LENGTH_LONG).show();
 
@@ -529,10 +583,10 @@ public class DetailsCheckout extends AppCompatActivity {
                             resultIntent.putExtra("order_total", totalAmount);
                             resultIntent.putExtra("product_name", product.getName());
                             resultIntent.putExtra("product_brand", product.getBrand());
-                            resultIntent.putExtra("customer_name", userFullName);
-                            resultIntent.putExtra("customer_email", userEmail);
-                            resultIntent.putExtra("customer_phone", userPhoneNumber);
-                            resultIntent.putExtra("delivery_address", userStreetBarangay + ", " + userMunicipalityProvince);
+                            resultIntent.putExtra("customer_name", customerName);
+                            resultIntent.putExtra("customer_email", currentUserEmail);
+                            resultIntent.putExtra("customer_phone", customerPhone);
+                            resultIntent.putExtra("delivery_address", customerAddress);
                             setResult(RESULT_OK, resultIntent);
 
                             // Finish this activity and return to Details
@@ -540,6 +594,12 @@ public class DetailsCheckout extends AppCompatActivity {
                         } catch (Exception e) {
                             Log.e(TAG, "Error in checkout completion: " + e.getMessage(), e);
                             Toast.makeText(DetailsCheckout.this, "Error completing order", Toast.LENGTH_SHORT).show();
+
+                            // Re-enable checkout button on error
+                            if (btnCheckout != null) {
+                                btnCheckout.setEnabled(true);
+                                btnCheckout.setText("Checkout");
+                            }
                         }
                     }
                 }, 1500);
@@ -548,6 +608,12 @@ public class DetailsCheckout extends AppCompatActivity {
         } catch (Exception e) {
             Log.e(TAG, "Error processing checkout: " + e.getMessage(), e);
             Toast.makeText(this, "Error processing checkout. Please try again.", Toast.LENGTH_SHORT).show();
+
+            // Re-enable checkout button on error
+            if (btnCheckout != null) {
+                btnCheckout.setEnabled(true);
+                btnCheckout.setText("Checkout");
+            }
         }
     }
 

@@ -58,11 +58,11 @@
                     app:tint="#333333" />
 
                 <TextView
-                    android:id="@+id/title_purchases"
+                    android:id="@+id/title_orders"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Purchases"
+                    android:text="Orders"
                     android:textColor="@android:color/black"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -144,13 +144,13 @@
                 android:textSize="12sp" />
 
             <Button
-                android:id="@+id/btn_to_receive"
+                android:id="@+id/btn_to_favorites"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/button_outline"
                 android:paddingHorizontal="20dp"
-                android:text="To Receive"
+                android:text="Favorites"
                 android:textAllCaps="false"
                 android:textColor="#333333"
                 android:textSize="12sp" />

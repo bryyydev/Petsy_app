@@ -1,64 +1,146 @@
 package com.ucucite.block_one_mob_dev;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Orders_To_Ship_Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Orders_To_Ship_Fragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private LinearLayout ordersContainer;
+    private List<OrderItem> ordersList;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    // Simple OrderItem class to hold order data
+    public static class OrderItem {
+        public String productName;
+        public String productBrand;
+        public String productPrice;
+        public int quantity;
+        public int imageResource;
+        public String paymentMethod;
+        public String customerName;
+        public String orderDate;
 
-    public Orders_To_Ship_Fragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Orders_To_ShipFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Orders_To_Ship_Fragment newInstance(String param1, String param2) {
-        Orders_To_Ship_Fragment fragment = new Orders_To_Ship_Fragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        public OrderItem(String name, String brand, String price, int qty, int image, String payment, String customer, String date) {
+            this.productName = name;
+            this.productBrand = brand;
+            this.productPrice = price;
+            this.quantity = qty;
+            this.imageResource = image;
+            this.paymentMethod = payment;
+            this.customerName = customer;
+            this.orderDate = date;
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_orders__to__ship, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_orders__to__ship, container, false);
+
+        ordersContainer = view.findViewById(R.id.orders_container); // You'll need to add this ID to your XML
+        ordersList = new ArrayList<>();
+
+        // Load saved orders
+        loadOrders();
+
+        return view;
+    }
+
+    // Method to add new order (call this from your checkout activities)
+    public static void addNewOrder(String productName, String brand, String price, int quantity,
+                                   int imageResource, String paymentMethod, String customerName) {
+        // Save to SharedPreferences or database
+        // For simplicity, we'll use a static list or SharedPreferences
+        OrderDataManager.addOrder(productName, brand, price, quantity, imageResource, paymentMethod, customerName);
+    }
+
+    private void loadOrders() {
+        // Load orders from SharedPreferences or database
+        ordersList = OrderDataManager.getAllOrders(getContext());
+        displayOrders();
+    }
+
+    private void displayOrders() {
+        if (ordersContainer == null) return;
+
+        ordersContainer.removeAllViews(); // Clear existing views
+
+        if (ordersList.isEmpty()) {
+            // Show empty state
+            TextView emptyText = new TextView(getContext());
+            emptyText.setText("No orders to ship");
+            emptyText.setTextSize(16);
+            emptyText.setPadding(32, 32, 32, 32);
+            emptyText.setGravity(android.view.Gravity.CENTER);
+            ordersContainer.addView(emptyText);
+            return;
+        }
+
+        // Create cards for each order
+        for (OrderItem order : ordersList) {
+            createOrderCard(order);
+        }
+    }
+
+    private void createOrderCard(OrderItem order) {
+        // Inflate the order card layout
+        View cardView = LayoutInflater.from(getContext()).inflate(R.layout.item_order_card, ordersContainer, false);
+
+        // Find views
+        ImageView productImage = cardView.findViewById(R.id.product_image);
+        TextView productName = cardView.findViewById(R.id.product_name);
+        TextView productBrand = cardView.findViewById(R.id.product_brand);
+        TextView productPrice = cardView.findViewById(R.id.product_price);
+        TextView productQuantity = cardView.findViewById(R.id.product_quantity);
+        Button trackButton = cardView.findViewById(R.id.btn_track_order);
+
+        // Set data
+        if (productImage != null && order.imageResource != 0) {
+            productImage.setImageResource(order.imageResource);
+        }
+
+        if (productName != null) {
+            productName.setText(order.productName);
+        }
+
+        if (productBrand != null) {
+            productBrand.setText(order.productBrand);
+        }
+
+        if (productPrice != null) {
+            productPrice.setText(order.productPrice);
+        }
+
+        if (productQuantity != null) {
+            productQuantity.setText("Quantity: " + order.quantity + " pcs");
+        }
+
+        if (trackButton != null) {
+            trackButton.setOnClickListener(v -> {
+                Toast.makeText(getContext(), "Tracking order: " + order.productName, Toast.LENGTH_SHORT).show();
+                // Add tracking functionality here
+            });
+        }
+
+        // Add card to container
+        ordersContainer.addView(cardView);
+    }
+
+    // Method to refresh orders when returning to fragment
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadOrders(); // Refresh orders when fragment becomes visible
     }
 }
