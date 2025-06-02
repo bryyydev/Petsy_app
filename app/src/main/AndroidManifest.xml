@@ -16,71 +16,11 @@
         <activity
             android:name=".add_payment_method"
             android:exported="false" />
+
         <activity
-            android:name=".Track_Orders"
-            android:exported="false" />
-        <activity
-            android:name=".Checkout"
-            android:exported="false" />
-        <activity
-            android:name=".add_address"
-            android:exported="false" />
-        <activity
-            android:name=".Edit_Address"
+            android:name=".CartCheckout"
             android:exported="true" />
-        <activity
-            android:name=".Shipping_Address"
-            android:exported="true" />
-        <activity
-            android:name=".nav_bar"
-            android:exported="true" />
-        <activity
-            android:name=".Swipe"
-            android:exported="false" />
-        <activity
-            android:name=".obs_three"
-            android:exported="false" />
-        <activity
-            android:name=".obs_two"
-            android:exported="false" />
-        <activity
-            android:name=".obs_one"
-            android:exported="false" />
-        <activity
-            android:name=".Profile_Fragment"
-            android:exported="false" />
-        <activity
-            android:name=".Edit_Info"
-            android:exported="true" />
-        <activity
-            android:name=".Sign_up"
-            android:exported="true" />
-        <activity
-            android:name=".Log_in"
-            android:exported="true" />
-        <activity
-            android:name=".Splashscreen_first"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".Details"
-            android:exported="true" />
-        <activity
-            android:name=".MyPagerAdapter"
-            android:exported="false" />
-        <activity
-            android:name=".Splashscreen_second"
-            android:exported="false" />
-        <activity
-            android:name=".Splashscreen_third"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
+
         <activity
             android:name=".Payment_Methods"
             android:exported="true">
@@ -89,5 +29,91 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".Track_Orders"
+            android:exported="false" />
+
+        <activity
+            android:name=".DetailsCheckout"
+            android:exported="true" />
+
+        <activity
+            android:name=".add_address"
+            android:exported="false" />
+
+        <activity
+            android:name=".Edit_Address"
+            android:exported="true" />
+
+        <activity
+            android:name=".Shipping_Address"
+            android:exported="true" />
+
+        <activity
+            android:name=".nav_bar"
+            android:exported="true" />
+
+        <activity
+            android:name=".Swipe"
+            android:exported="false" />
+
+        <activity
+            android:name=".obs_three"
+            android:exported="false" />
+
+        <activity
+            android:name=".obs_two"
+            android:exported="false" />
+
+        <activity
+            android:name=".obs_one"
+            android:exported="false" />
+
+        <activity
+            android:name=".Profile_Fragment"
+            android:exported="false" />
+
+        <activity
+            android:name=".Edit_Info"
+            android:exported="true" />
+
+        <activity
+            android:name=".Sign_up"
+            android:exported="true" />
+
+        <activity
+            android:name=".Log_in"
+            android:exported="true" />
+
+        <activity
+            android:name=".Splashscreen_first"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".Details"
+            android:exported="true" />
+
+        <activity
+            android:name=".MyPagerAdapter"
+            android:exported="false" />
+
+        <activity
+            android:name=".Splashscreen_second"
+            android:exported="false" />
+
+        <activity
+            android:name=".Splashscreen_third"
+            android:exported="false" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
     </application>
+
 </manifest>

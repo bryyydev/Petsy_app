@@ -12,6 +12,13 @@
 
     <color name="text_secondary">#757575</color> <!-- Example color -->
 
+    <!-- Add this to your res/values/colors.xml file -->
+    <color name="text_gray">#666666</color>
+    <color name="selected_payment_text">#339967</color>
+        <!-- Add this color to your existing colors.xml file -->
+        <color name="selected_payment_bg">#A4D4B4</color>
+
+        <!-- You can also add these if you don't have them already -->
 
 
 

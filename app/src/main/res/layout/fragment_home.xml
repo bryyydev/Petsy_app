@@ -37,6 +37,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
+                android:id="@+id/location"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:background="@drawable/white_bg_two"
@@ -53,7 +54,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/locationName"
+                    android:id="@+id/street_barangay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="San Vicente"
@@ -62,7 +63,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/locationDetails"
+                    android:id="@+id/municipality_province"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Urdaneta, PH"
@@ -586,14 +587,14 @@
                             android:padding="8dp">
 
                             <ImageView
-                                android:id="@id/product_image_4"
+                                android:id="@+id/product_image_4"
                                 android:layout_width="match_parent"
                                 android:layout_height="100dp"
                                 android:scaleType="centerInside"
                                 android:src="@drawable/product4" />
 
                             <TextView
-                                android:id="@id/product_name_4"
+                                android:id="@+id/product_name_4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
@@ -611,7 +612,7 @@
 
                                 <!-- Price -->
                                 <TextView
-                                    android:id="@id/product_price_4"
+                                    android:id="@+id/product_price_4"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="₱100.00"

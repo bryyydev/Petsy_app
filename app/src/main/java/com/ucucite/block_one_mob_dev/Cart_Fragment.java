@@ -1,5 +1,6 @@
 package com.ucucite.block_one_mob_dev;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,8 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class Cart_Fragment extends Fragment implements CartAdapter.OnCartItemClickListener {
+
+    private static final int CHECKOUT_REQUEST_CODE = 1001;
 
     private RecyclerView recyclerView;
     private CartAdapter cartAdapter;
@@ -93,8 +96,7 @@ public class Cart_Fragment extends Fragment implements CartAdapter.OnCartItemCli
                 if (cartManager.getCartItems().isEmpty()) {
                     Toast.makeText(getContext(), "Your cart is empty!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getContext(), "Proceeding to checkout...", Toast.LENGTH_SHORT).show();
-                    // Here you would navigate to checkout activity
+                    navigateToCheckout();
                 }
             });
         }
@@ -111,6 +113,67 @@ public class Cart_Fragment extends Fragment implements CartAdapter.OnCartItemCli
                     }
                 }
             });
+        }
+    }
+
+    private void navigateToCheckout() {
+        try {
+            List<CartItem> cartItems = cartManager.getCartItems();
+            if (cartItems.isEmpty()) {
+                Toast.makeText(getContext(), "Your cart is empty!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Convert List to Array for Intent
+            CartItem[] cartItemsArray = cartItems.toArray(new CartItem[0]);
+
+            // Calculate totals
+            double subtotal = cartManager.getSubTotal();
+            double total = subtotal + SHIPPING_FEE;
+
+            // Create Intent
+            Intent checkoutIntent = new Intent(getActivity(), CartCheckout.class);
+
+            // Add data to Intent
+            checkoutIntent.putExtra("cart_items", cartItemsArray);
+            checkoutIntent.putExtra("subtotal", subtotal);
+            checkoutIntent.putExtra("shipping_fee", SHIPPING_FEE);
+            checkoutIntent.putExtra("total", total);
+            checkoutIntent.putExtra("checkout_message", "Proceeding to checkout with " + cartItems.size() + " items");
+
+            // Start CartCheckout activity for result
+            startActivityForResult(checkoutIntent, CHECKOUT_REQUEST_CODE);
+
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "Error navigating to checkout: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CHECKOUT_REQUEST_CODE) {
+            if (resultCode == getActivity().RESULT_OK && data != null) {
+                // Checkout was successful
+                boolean checkoutSuccess = data.getBooleanExtra("checkout_success", false);
+                String paymentMethod = data.getStringExtra("payment_method");
+                double orderTotal = data.getDoubleExtra("order_total", 0.0);
+
+                if (checkoutSuccess) {
+                    // Clear the cart after successful checkout
+                    cartManager.clearCart();
+                    updateCartDisplay();
+
+                    Toast.makeText(getContext(),
+                            "Order placed successfully!\nPayment: " + paymentMethod +
+                                    "\nTotal: " + df.format(orderTotal),
+                            Toast.LENGTH_LONG).show();
+                }
+            } else {
+                // Checkout was cancelled or failed
+                Toast.makeText(getContext(), "Checkout cancelled", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
