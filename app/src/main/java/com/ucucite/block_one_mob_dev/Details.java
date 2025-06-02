@@ -22,6 +22,11 @@ public class Details extends AppCompatActivity {
     private String basePrice;
     private CartManager cartManager;
 
+    // User data variables
+    private String userEmail;
+    private String userStreetBarangay;
+    private String userMunicipalityProvince;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +35,17 @@ public class Details extends AppCompatActivity {
         // Initialize cart manager
         cartManager = CartManager.getInstance();
 
-        // Get product from intent
+        // Get product and user data from intent
         currentProduct = getIntent().getParcelableExtra("product");
+
+        // Retrieve user data from intent
+        userEmail = getIntent().getStringExtra("user_email");
+        userStreetBarangay = getIntent().getStringExtra("user_street_barangay");
+        userMunicipalityProvince = getIntent().getStringExtra("user_municipality_province");
+
+        Log.d(TAG, "User data received in Details - Email: " + userEmail +
+                ", Street/Barangay: " + userStreetBarangay +
+                ", Municipality/Province: " + userMunicipalityProvince);
 
         if (currentProduct != null) {
             Log.d(TAG, "Product loaded: " + currentProduct.getName());
@@ -142,7 +156,7 @@ public class Details extends AppCompatActivity {
             }
 
             // Favorite button
-            ImageView favoriteButton = findViewById(R.id.icon_delete);
+            ImageView favoriteButton = findViewById(R.id.icon_favorite);
             if (favoriteButton != null) {
                 favoriteButton.setOnClickListener(v -> toggleFavorite());
             }
@@ -188,7 +202,16 @@ public class Details extends AppCompatActivity {
             checkoutIntent.putExtra("product_quantity", quantity);
             checkoutIntent.putExtra("checkout_message", "Direct checkout for " + currentProduct.getName());
 
+            // Pass user data to DetailsCheckout
+            checkoutIntent.putExtra("user_email", userEmail);
+            checkoutIntent.putExtra("user_street_barangay", userStreetBarangay);
+            checkoutIntent.putExtra("user_municipality_province", userMunicipalityProvince);
+
             Log.d(TAG, "Navigating to Checkout with product: " + currentProduct.getName() + ", quantity: " + quantity);
+            Log.d(TAG, "Passing user data to Checkout - Email: " + userEmail +
+                    ", Street/Barangay: " + userStreetBarangay +
+                    ", Municipality/Province: " + userMunicipalityProvince);
+
             startActivityForResult(checkoutIntent, CHECKOUT_REQUEST_CODE);
 
         } catch (Exception e) {

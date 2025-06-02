@@ -1,6 +1,7 @@
 package com.ucucite.block_one_mob_dev;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,11 @@ public class CartCheckout extends AppCompatActivity {
     private TextView tvTotal;
     private Button btnCheckout;
 
+    // User info UI components (ADD THESE TO YOUR LAYOUT)
+    private TextView tvUserName;
+    private TextView tvUserPhone;
+    private TextView tvUserAddress;
+
     // Payment method cards
     private CardView cashOnDeliveryCard;
     private CardView bankCardCard;
@@ -38,6 +44,10 @@ public class CartCheckout extends AppCompatActivity {
     private double shippingFee;
     private double total;
     private String selectedPaymentMethod = "Cash on Delivery"; // Default
+
+    // Database and user session
+    private DatabaseHelper databaseHelper;
+    private String currentUserEmail;
 
     private DecimalFormat df = new DecimalFormat("₱0.00");
 
@@ -51,6 +61,12 @@ public class CartCheckout extends AppCompatActivity {
             setContentView(R.layout.activity_cart_checkout);
             Log.d(TAG, "setContentView completed");
 
+            // Initialize database helper
+            databaseHelper = new DatabaseHelper(this);
+
+            // Get current user email from SharedPreferences
+            getCurrentUserEmail();
+
             initViews();
             Log.d(TAG, "initViews completed");
 
@@ -63,6 +79,9 @@ public class CartCheckout extends AppCompatActivity {
             displayCartItems();
             Log.d(TAG, "displayCartItems completed");
 
+            displayUserInfo();
+            Log.d(TAG, "displayUserInfo completed");
+
             updateTotals();
             Log.d(TAG, "updateTotals completed");
 
@@ -73,6 +92,21 @@ public class CartCheckout extends AppCompatActivity {
         }
     }
 
+    private void getCurrentUserEmail() {
+        try {
+            SharedPreferences prefs = getSharedPreferences("UserSession", MODE_PRIVATE);
+            currentUserEmail = prefs.getString("user_email", null);
+            Log.d(TAG, "Current user email: " + currentUserEmail);
+
+            if (currentUserEmail == null || currentUserEmail.isEmpty()) {
+                Toast.makeText(this, "User session not found. Please login again.", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error getting current user email: " + e.getMessage(), e);
+        }
+    }
+
     private void initViews() {
         try {
             iconBack = findViewById(R.id.icon_back_chkt);
@@ -80,6 +114,11 @@ public class CartCheckout extends AppCompatActivity {
             tvSubtotal = findViewById(R.id.subtotal);
             tvTotal = findViewById(R.id.total);
             btnCheckout = findViewById(R.id.btn_checkout);
+
+            // User info TextViews (ADD THESE IDs TO YOUR LAYOUT)
+            tvUserName = findViewById(R.id.name);
+            tvUserPhone = findViewById(R.id.phoneNumber);
+            tvUserAddress = findViewById(R.id.address);
 
             // Payment method cards
             cashOnDeliveryCard = findViewById(R.id.cash_on_delivery_card);
@@ -92,6 +131,9 @@ public class CartCheckout extends AppCompatActivity {
                     ", tvSubtotal: " + (tvSubtotal != null) +
                     ", tvTotal: " + (tvTotal != null) +
                     ", btnCheckout: " + (btnCheckout != null) +
+                    ", tvUserName: " + (tvUserName != null) +
+                    ", tvUserPhone: " + (tvUserPhone != null) +
+                    ", tvUserAddress: " + (tvUserAddress != null) +
                     ", cashOnDeliveryCard: " + (cashOnDeliveryCard != null) +
                     ", bankCardCard: " + (bankCardCard != null) +
                     ", gcashCard: " + (gcashCard != null));
@@ -101,6 +143,70 @@ public class CartCheckout extends AppCompatActivity {
             throw e;
         }
     }
+
+    private void displayUserInfo() {
+        try {
+            if (currentUserEmail == null) {
+                Log.w(TAG, "Current user email is null, cannot display user info");
+                return;
+            }
+
+            // Get user info from database
+            DatabaseHelper.UserInfo userInfo = databaseHelper.getUserByEmail(currentUserEmail);
+
+            if (userInfo == null) {
+                Log.w(TAG, "User info not found for email: " + currentUserEmail);
+                Toast.makeText(this, "User information not found", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Display user name
+            if (tvUserName != null) {
+                String fullName = userInfo.getFullName();
+                if (fullName.isEmpty()) {
+                    tvUserName.setText(userInfo.username != null ? userInfo.username : "Name not set");
+                } else {
+                    tvUserName.setText(fullName);
+                }
+            }
+
+            // Display user phone
+            if (tvUserPhone != null) {
+                if (userInfo.phoneNumber != null && !userInfo.phoneNumber.trim().isEmpty()) {
+                    tvUserPhone.setText(userInfo.phoneNumber);
+                } else {
+                    tvUserPhone.setText("Phone not set");
+                    tvUserPhone.setTextColor(Color.parseColor("#FF6B6B")); // Red color to indicate missing info
+                }
+            }
+
+            // Display user address
+            if (tvUserAddress != null) {
+                String fullAddress = userInfo.getFullAddress();
+                if (!fullAddress.isEmpty()) {
+                    tvUserAddress.setText(fullAddress);
+                } else {
+                    tvUserAddress.setText("Address not set");
+                    tvUserAddress.setTextColor(Color.parseColor("#FF6B6B")); // Red color to indicate missing info
+                }
+            }
+
+            // Check if profile is complete
+            boolean isProfileComplete = databaseHelper.isProfileComplete(currentUserEmail);
+            if (!isProfileComplete) {
+                Toast.makeText(this, "Please complete your profile information before checkout", Toast.LENGTH_LONG).show();
+                Log.w(TAG, "User profile is incomplete");
+            }
+
+            Log.d(TAG, "User info displayed successfully");
+
+        } catch (Exception e) {
+            Log.e(TAG, "Error displaying user info: " + e.getMessage(), e);
+            Toast.makeText(this, "Error loading user information", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // ... (rest of your existing methods remain the same)
 
     private void getIntentData() {
         try {
@@ -209,21 +315,18 @@ public class CartCheckout extends AppCompatActivity {
                 cashOnDeliveryCard.setCardElevation(defaultElevation);
                 cashOnDeliveryCard.setCardBackgroundColor(
                         ContextCompat.getColor(this, android.R.color.white));
-                // Reset text colors to default
                 resetCardTextColors(cashOnDeliveryCard);
             }
             if (bankCardCard != null) {
                 bankCardCard.setCardElevation(defaultElevation);
                 bankCardCard.setCardBackgroundColor(
                         ContextCompat.getColor(this, android.R.color.white));
-                // Reset text colors to default
                 resetCardTextColors(bankCardCard);
             }
             if (gcashCard != null) {
                 gcashCard.setCardElevation(defaultElevation);
                 gcashCard.setCardBackgroundColor(
                         ContextCompat.getColor(this, android.R.color.white));
-                // Reset text colors to default
                 resetCardTextColors(gcashCard);
             }
         } catch (Exception e) {
@@ -236,12 +339,8 @@ public class CartCheckout extends AppCompatActivity {
             if (selectedCard != null) {
                 float highlightElevation = 8 * getResources().getDisplayMetrics().density;
                 selectedCard.setCardElevation(highlightElevation);
-
-                // Use a more visible green color similar to Cash on Delivery
                 selectedCard.setCardBackgroundColor(
                         ContextCompat.getColor(this, R.color.selected_payment_bg));
-
-                // Change text colors to the selected color #339967
                 setCardTextColors(selectedCard);
             }
         } catch (Exception e) {
@@ -256,17 +355,13 @@ public class CartCheckout extends AppCompatActivity {
                 for (int i = 0; i < container.getChildCount(); i++) {
                     if (container.getChildAt(i) instanceof TextView) {
                         TextView textView = (TextView) container.getChildAt(i);
-                        // Reset to original colors based on text content
                         String text = textView.getText().toString();
                         if (text.contains("💵") || text.contains("🏦") || text.contains("GCash")) {
-                            // Title text - black
                             textView.setTextColor(ContextCompat.getColor(this, android.R.color.black));
                         } else {
-                            // Description text - gray
                             textView.setTextColor(Color.parseColor("#666666"));
                         }
                     } else if (container.getChildAt(i) instanceof LinearLayout) {
-                        // Handle nested LinearLayouts (like in GCash card)
                         LinearLayout nestedLayout = (LinearLayout) container.getChildAt(i);
                         for (int j = 0; j < nestedLayout.getChildCount(); j++) {
                             if (nestedLayout.getChildAt(j) instanceof TextView) {
@@ -289,9 +384,7 @@ public class CartCheckout extends AppCompatActivity {
 
     private void setCardTextColors(CardView card) {
         try {
-            // Define the selected color #339967
             int selectedColor = Color.parseColor("#339967");
-
             LinearLayout container = (LinearLayout) card.getChildAt(0);
             if (container != null) {
                 for (int i = 0; i < container.getChildCount(); i++) {
@@ -299,7 +392,6 @@ public class CartCheckout extends AppCompatActivity {
                         TextView textView = (TextView) container.getChildAt(i);
                         textView.setTextColor(selectedColor);
                     } else if (container.getChildAt(i) instanceof LinearLayout) {
-                        // Handle nested LinearLayouts (like in GCash card)
                         LinearLayout nestedLayout = (LinearLayout) container.getChildAt(i);
                         for (int j = 0; j < nestedLayout.getChildCount(); j++) {
                             if (nestedLayout.getChildAt(j) instanceof TextView) {
@@ -324,7 +416,6 @@ public class CartCheckout extends AppCompatActivity {
                 return;
             }
 
-            // Clear existing views
             if (productsContainer != null) {
                 productsContainer.removeAllViews();
                 Log.d(TAG, "Cleared existing views from container");
@@ -333,7 +424,6 @@ public class CartCheckout extends AppCompatActivity {
                 return;
             }
 
-            // Add each cart item as a product card
             for (int i = 0; i < cartItems.length; i++) {
                 CartItem item = cartItems[i];
                 Log.d(TAG, "Processing cart item " + i + ": " + (item != null ? "not null" : "null"));
@@ -357,13 +447,11 @@ public class CartCheckout extends AppCompatActivity {
         try {
             Log.d(TAG, "Adding product card for: " + (cartItem.getProduct() != null ? cartItem.getProduct().getName() : "null product"));
 
-            // Check if layout exists before inflating
             View productCard;
             try {
                 productCard = getLayoutInflater().inflate(R.layout.item_checkout, productsContainer, false);
             } catch (Exception e) {
                 Log.e(TAG, "Error inflating item_checkout layout: " + e.getMessage(), e);
-                // Create a simple fallback view
                 TextView fallbackView = new TextView(this);
                 fallbackView.setText("Product: " + cartItem.getProduct().getName() + " x" + cartItem.getQuantity());
                 fallbackView.setPadding(16, 16, 16, 16);
@@ -371,19 +459,11 @@ public class CartCheckout extends AppCompatActivity {
                 return;
             }
 
-            // Find views in the product card with null checks
             ImageView productImage = productCard.findViewById(R.id.product_image);
             TextView productName = productCard.findViewById(R.id.product_name);
             TextView productBrand = productCard.findViewById(R.id.product_brand);
             TextView productPrice = productCard.findViewById(R.id.product_price);
             TextView productQuantity = productCard.findViewById(R.id.product_quantity);
-
-            // Log which views are found
-            Log.d(TAG, "Views found - Image: " + (productImage != null) +
-                    ", Name: " + (productName != null) +
-                    ", Brand: " + (productBrand != null) +
-                    ", Price: " + (productPrice != null) +
-                    ", Quantity: " + (productQuantity != null));
 
             if (cartItem.getProduct() == null) {
                 Log.e(TAG, "Product is null for cart item");
@@ -392,7 +472,6 @@ public class CartCheckout extends AppCompatActivity {
 
             Product product = cartItem.getProduct();
 
-            // Set product details with null checks
             if (productName != null && product.getName() != null) {
                 productName.setText(product.getName());
             }
@@ -420,11 +499,8 @@ public class CartCheckout extends AppCompatActivity {
                 productQuantity.setText("x" + cartItem.getQuantity());
             }
 
-            // Add the product card to container
             if (productsContainer != null) {
                 productsContainer.addView(productCard);
-
-                // Add margin between cards
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) productCard.getLayoutParams();
                 if (params != null) {
                     params.bottomMargin = (int) (8 * getResources().getDisplayMetrics().density);
@@ -436,7 +512,6 @@ public class CartCheckout extends AppCompatActivity {
 
         } catch (Exception e) {
             Log.e(TAG, "Error in addProductCard: " + e.getMessage(), e);
-            // Add a simple fallback view so the user can still see something
             TextView fallbackView = new TextView(this);
             fallbackView.setText("Error loading product");
             fallbackView.setPadding(16, 16, 16, 16);
@@ -464,6 +539,12 @@ public class CartCheckout extends AppCompatActivity {
         try {
             if (cartItems == null || cartItems.length == 0) {
                 Toast.makeText(this, "No items to checkout!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Check if user profile is complete before allowing checkout
+            if (currentUserEmail != null && !databaseHelper.isProfileComplete(currentUserEmail)) {
+                Toast.makeText(this, "Please complete your profile information first", Toast.LENGTH_LONG).show();
                 return;
             }
 

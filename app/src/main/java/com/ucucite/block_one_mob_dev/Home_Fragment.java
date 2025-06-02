@@ -23,6 +23,11 @@ public class Home_Fragment extends Fragment {
     private String mParam2;
     private List<Product> products;
 
+    // User data variables
+    private String userEmail;
+    private String userStreetBarangay;
+    private String userMunicipalityProvince;
+
     public Home_Fragment() {
         // Required empty public constructor
     }
@@ -42,6 +47,31 @@ public class Home_Fragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+            // Retrieve user data from arguments
+            userEmail = getArguments().getString("EMAIL");
+            userStreetBarangay = getArguments().getString("STREET_BARANGAY");
+            userMunicipalityProvince = getArguments().getString("MUNICIPALITY_PROVINCE");
+
+            // Debug: Log all fragment arguments
+            Log.d(TAG, "All fragment arguments:");
+            for (String key : getArguments().keySet()) {
+                Object value = getArguments().get(key);
+                Log.d(TAG, key + " = " + (value != null ? value.toString() : "null"));
+            }
+
+            // If address data is not passed through arguments, fetch from database
+            if ((userStreetBarangay == null || userStreetBarangay.isEmpty() ||
+                    userMunicipalityProvince == null || userMunicipalityProvince.isEmpty())
+                    && userEmail != null && !userEmail.isEmpty()) {
+
+                Log.d(TAG, "Address data not found in arguments, fetching from database...");
+                fetchAddressFromDatabase();
+            }
+
+            Log.d(TAG, "User data received - Email: " + userEmail +
+                    ", Street/Barangay: " + userStreetBarangay +
+                    ", Municipality/Province: " + userMunicipalityProvince);
         }
 
         try {
@@ -54,21 +84,107 @@ public class Home_Fragment extends Fragment {
         }
     }
 
+    private void fetchAddressFromDatabase() {
+        try {
+            DatabaseHelper dbHelper = new DatabaseHelper(getContext());
+            DatabaseHelper.UserInfo userInfo = dbHelper.getUserByEmail(userEmail);
+
+            if (userInfo != null) {
+                // Build street/barangay string
+                StringBuilder streetBarangay = new StringBuilder();
+                if (userInfo.houseStreet != null && !userInfo.houseStreet.trim().isEmpty()) {
+                    streetBarangay.append(userInfo.houseStreet);
+                }
+                if (userInfo.barangay != null && !userInfo.barangay.trim().isEmpty()) {
+                    if (streetBarangay.length() > 0) {
+                        streetBarangay.append(", ");
+                    }
+                    streetBarangay.append(userInfo.barangay);
+                }
+
+                // Build municipality/province string
+                StringBuilder municipalityProvince = new StringBuilder();
+                if (userInfo.town != null && !userInfo.town.trim().isEmpty()) {
+                    municipalityProvince.append(userInfo.town);
+                }
+                if (userInfo.province != null && !userInfo.province.trim().isEmpty()) {
+                    if (municipalityProvince.length() > 0) {
+                        municipalityProvince.append(", ");
+                    }
+                    municipalityProvince.append(userInfo.province);
+                }
+
+                // Set the address data
+                userStreetBarangay = streetBarangay.toString();
+                userMunicipalityProvince = municipalityProvince.toString();
+
+                Log.d(TAG, "Address fetched from database - Street/Barangay: " + userStreetBarangay +
+                        ", Municipality/Province: " + userMunicipalityProvince);
+            } else {
+                Log.w(TAG, "No user found in database for email: " + userEmail);
+                userStreetBarangay = "";
+                userMunicipalityProvince = "";
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error fetching user address from database: " + e.getMessage(), e);
+            userStreetBarangay = "";
+            userMunicipalityProvince = "";
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         try {
+            // Setup user address display
+            setupUserAddressDisplay(view);
+
             // Setup click listeners for all product boxes
             setupProductClickListeners(view);
         } catch (Exception e) {
-            Log.e(TAG, "Error setting up product click listeners: " + e.getMessage(), e);
+            Log.e(TAG, "Error setting up home fragment: " + e.getMessage(), e);
             if (getContext() != null) {
-                Toast.makeText(getContext(), "Error loading products", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Error loading home screen", Toast.LENGTH_SHORT).show();
             }
         }
 
         return view;
+    }
+
+    private void setupUserAddressDisplay(View view) {
+        try {
+            // Find the TextViews for address display
+            TextView streetBarangayTextView = view.findViewById(R.id.street_barangay);
+            TextView municipalityProvinceTextView = view.findViewById(R.id.municipality_province);
+
+            // Set the address text if TextViews exist and user data is available
+            if (streetBarangayTextView != null) {
+                if (userStreetBarangay != null && !userStreetBarangay.trim().isEmpty()) {
+                    streetBarangayTextView.setText(userStreetBarangay);
+                    Log.d(TAG, "Street/Barangay set: " + userStreetBarangay);
+                } else {
+                    streetBarangayTextView.setText("Address not available");
+                    Log.w(TAG, "Street/Barangay data is empty or null");
+                }
+            } else {
+                Log.w(TAG, "Street/Barangay TextView not found in layout");
+            }
+
+            if (municipalityProvinceTextView != null) {
+                if (userMunicipalityProvince != null && !userMunicipalityProvince.trim().isEmpty()) {
+                    municipalityProvinceTextView.setText(userMunicipalityProvince);
+                    Log.d(TAG, "Municipality/Province set: " + userMunicipalityProvince);
+                } else {
+                    municipalityProvinceTextView.setText("Location not available");
+                    Log.w(TAG, "Municipality/Province data is empty or null");
+                }
+            } else {
+                Log.w(TAG, "Municipality/Province TextView not found in layout");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error setting up user address display: " + e.getMessage(), e);
+        }
     }
 
     private void setupProductClickListeners(View view) {
@@ -250,12 +366,23 @@ public class Home_Fragment extends Fragment {
         }
     }
 
+    // In Home_Fragment.java - modify the openProductDetails method
+
     private void openProductDetails(Product product) {
         try {
             if (getActivity() != null) {
                 Intent intent = new Intent(getActivity(), Details.class);
                 intent.putExtra("product", product);
+
+                // Pass user data to Details activity
+                intent.putExtra("user_email", userEmail);
+                intent.putExtra("user_street_barangay", userStreetBarangay);
+                intent.putExtra("user_municipality_province", userMunicipalityProvince);
+
                 Log.d(TAG, "Starting Details activity for: " + product.getName());
+                Log.d(TAG, "Passing user data - Email: " + userEmail +
+                        ", Street/Barangay: " + userStreetBarangay +
+                        ", Municipality/Province: " + userMunicipalityProvince);
                 startActivity(intent);
             } else {
                 Log.e(TAG, "Activity is null, cannot start Details activity");
@@ -266,5 +393,4 @@ public class Home_Fragment extends Fragment {
                 Toast.makeText(getContext(), "Error opening product details", Toast.LENGTH_SHORT).show();
             }
         }
-    }
-}
+    }}

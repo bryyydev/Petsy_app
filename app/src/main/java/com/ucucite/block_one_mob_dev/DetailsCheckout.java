@@ -30,6 +30,11 @@ public class DetailsCheckout extends AppCompatActivity {
     private TextView total;
     private Button btnCheckout;
 
+    // User information UI components
+    private TextView fullName;
+    private TextView fullAddress;
+    private TextView phoneNumber;
+
     // Payment method cards
     private CardView cashOnDeliveryCard;
     private CardView bankCardCard;
@@ -42,14 +47,21 @@ public class DetailsCheckout extends AppCompatActivity {
     private String selectedPaymentMethod = "Cash on Delivery"; // Default
     private DecimalFormat df = new DecimalFormat("₱0.00");
 
+    // User data variables
+    private String userEmail;
+    private String userStreetBarangay;
+    private String userMunicipalityProvince;
+    private String userFullName;
+    private String userPhoneNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_checkout);
 
         try {
-            // Get product data from intent
-            getProductDataFromIntent();
+            // Get product data and user data from intent
+            getDataFromIntent();
 
             // Initialize views
             initViews();
@@ -59,6 +71,9 @@ public class DetailsCheckout extends AppCompatActivity {
 
             // Update UI with product data
             updateProductUI();
+
+            // Update UI with user data
+            updateUserUI();
 
             // Calculate and display totals
             calculateTotals();
@@ -70,7 +85,7 @@ public class DetailsCheckout extends AppCompatActivity {
         }
     }
 
-    private void getProductDataFromIntent() {
+    private void getDataFromIntent() {
         try {
             Intent intent = getIntent();
             if (intent != null) {
@@ -84,9 +99,21 @@ public class DetailsCheckout extends AppCompatActivity {
                     quantity = intent.getIntExtra("product_quantity", 1);
                 }
 
+                // Get user data from intent
+                userEmail = intent.getStringExtra("user_email");
+                userStreetBarangay = intent.getStringExtra("user_street_barangay");
+                userMunicipalityProvince = intent.getStringExtra("user_municipality_province");
+                userFullName = intent.getStringExtra("user_full_name");
+                userPhoneNumber = intent.getStringExtra("user_phone_number");
+
                 Log.d(TAG, "Product received: " + (product != null ? product.getName() : "null"));
                 Log.d(TAG, "Brand: " + (product != null ? product.getBrand() : "null"));
                 Log.d(TAG, "Quantity: " + quantity);
+                Log.d(TAG, "User data received in Checkout - Email: " + userEmail +
+                        ", Street/Barangay: " + userStreetBarangay +
+                        ", Municipality/Province: " + userMunicipalityProvince +
+                        ", Full Name: " + userFullName +
+                        ", Phone: " + userPhoneNumber);
 
                 if (product == null) {
                     Log.e(TAG, "Product is null after retrieval");
@@ -99,8 +126,8 @@ public class DetailsCheckout extends AppCompatActivity {
                 finish();
             }
         } catch (Exception e) {
-            Log.e(TAG, "Error getting product data: " + e.getMessage(), e);
-            Toast.makeText(this, "Error loading product data", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Error getting data from intent: " + e.getMessage(), e);
+            Toast.makeText(this, "Error loading data", Toast.LENGTH_SHORT).show();
             finish();
         }
     }
@@ -117,6 +144,11 @@ public class DetailsCheckout extends AppCompatActivity {
             total = findViewById(R.id.total);
             btnCheckout = findViewById(R.id.btn_checkout);
 
+            // Initialize user information views
+            fullName = findViewById(R.id.fullname);
+            fullAddress = findViewById(R.id.full_address);
+            phoneNumber = findViewById(R.id.phoneNumber);
+
             // Payment method cards
             cashOnDeliveryCard = findViewById(R.id.cash_on_delivery_card);
             bankCardCard = findViewById(R.id.bank_card_card);
@@ -129,6 +161,45 @@ public class DetailsCheckout extends AppCompatActivity {
 
         } catch (Exception e) {
             Log.e(TAG, "Error initializing views: " + e.getMessage(), e);
+        }
+    }
+
+    private void updateUserUI() {
+        try {
+            // Update full name
+            if (fullName != null) {
+                if (userFullName != null && !userFullName.isEmpty()) {
+                    fullName.setText(userFullName);
+                } else {
+                    fullName.setText("Jaime Yee II"); // Default fallback
+                }
+            }
+
+            // Update full address
+            if (fullAddress != null) {
+                if (userStreetBarangay != null && userMunicipalityProvince != null) {
+                    String completeAddress = userStreetBarangay + "\n" + userMunicipalityProvince;
+                    fullAddress.setText(completeAddress);
+                } else {
+                    fullAddress.setText("Block 2 Lot 17 Estrella Homes Phase 1\nToclong Kawit Cavite"); // Default fallback
+                }
+            }
+
+            // Update phone number
+            if (phoneNumber != null) {
+                if (userPhoneNumber != null && !userPhoneNumber.isEmpty()) {
+                    phoneNumber.setText(userPhoneNumber);
+                } else {
+                    phoneNumber.setText("+639155371154"); // Default fallback
+                }
+            }
+
+            Log.d(TAG, "User UI updated successfully");
+            Log.d(TAG, "Displayed - Name: " + (fullName != null ? fullName.getText() : "null") +
+                    ", Phone: " + (phoneNumber != null ? phoneNumber.getText() : "null"));
+
+        } catch (Exception e) {
+            Log.e(TAG, "Error updating user UI: " + e.getMessage(), e);
         }
     }
 
@@ -409,6 +480,13 @@ public class DetailsCheckout extends AppCompatActivity {
                 return;
             }
 
+            // Validate user data before processing
+            if (userEmail == null || userEmail.isEmpty()) {
+                Toast.makeText(this, "User email is required for checkout", Toast.LENGTH_SHORT).show();
+                Log.w(TAG, "User email is missing");
+                return;
+            }
+
             // Show processing message with selected payment method
             Toast.makeText(this, "Processing order with " + selectedPaymentMethod + "...", Toast.LENGTH_SHORT).show();
 
@@ -421,6 +499,10 @@ public class DetailsCheckout extends AppCompatActivity {
             Log.d(TAG, "Brand: " + product.getBrand());
             Log.d(TAG, "Quantity: " + quantity);
             Log.d(TAG, "Total: " + df.format(totalAmount));
+            Log.d(TAG, "Delivery to: " + userStreetBarangay + ", " + userMunicipalityProvince);
+            Log.d(TAG, "Customer: " + userFullName);
+            Log.d(TAG, "Customer email: " + userEmail);
+            Log.d(TAG, "Customer phone: " + userPhoneNumber);
 
             // Simulate processing delay
             if (btnCheckout != null) {
@@ -433,7 +515,10 @@ public class DetailsCheckout extends AppCompatActivity {
                                     "Brand: " + product.getBrand() + "\n" +
                                     "Quantity: " + quantity + "\n" +
                                     "Payment: " + selectedPaymentMethod + "\n" +
-                                    "Total: " + df.format(totalAmount);
+                                    "Total: " + df.format(totalAmount) + "\n" +
+                                    "Customer: " + userFullName + "\n" +
+                                    "Phone: " + userPhoneNumber + "\n" +
+                                    "Delivery to: " + userStreetBarangay + ", " + userMunicipalityProvince;
 
                             Toast.makeText(DetailsCheckout.this, orderSummary, Toast.LENGTH_LONG).show();
 
@@ -444,6 +529,10 @@ public class DetailsCheckout extends AppCompatActivity {
                             resultIntent.putExtra("order_total", totalAmount);
                             resultIntent.putExtra("product_name", product.getName());
                             resultIntent.putExtra("product_brand", product.getBrand());
+                            resultIntent.putExtra("customer_name", userFullName);
+                            resultIntent.putExtra("customer_email", userEmail);
+                            resultIntent.putExtra("customer_phone", userPhoneNumber);
+                            resultIntent.putExtra("delivery_address", userStreetBarangay + ", " + userMunicipalityProvince);
                             setResult(RESULT_OK, resultIntent);
 
                             // Finish this activity and return to Details
