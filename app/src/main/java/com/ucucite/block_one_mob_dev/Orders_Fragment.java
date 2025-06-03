@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class Orders_Fragment extends Fragment {
 
-    private Button btnToPay, btnToShip, btnToReceive, btnCompleted;
+    private Button btnToPay, btnToShip, btnToFavorites, btnCompleted;
     private View rootView;
     private Fragment currentFragment;
     private static final String SELECTED_TAB_KEY = "selected_tab";
@@ -54,7 +54,7 @@ public class Orders_Fragment extends Fragment {
     private void initializeViews() {
         btnToPay = rootView.findViewById(R.id.btn_to_pay);
         btnToShip = rootView.findViewById(R.id.btn_to_ship);
-        btnToReceive = rootView.findViewById(R.id.btn_to_receive);
+        btnToFavorites = rootView.findViewById(R.id.btn_to_favorites);
         btnCompleted = rootView.findViewById(R.id.btn_completed);
     }
 
@@ -75,10 +75,10 @@ public class Orders_Fragment extends Fragment {
             }
         });
 
-        btnToReceive.setOnClickListener(v -> {
+        btnToFavorites.setOnClickListener(v -> {
             if (selectedTabIndex != 2) {
                 selectedTabIndex = 2;
-                loadChildFragment(new Orders_To_Receive_Fragment(), TAG_TO_RECEIVE);
+                loadChildFragment(new Orders_To_Favorite_Fragment(), TAG_TO_RECEIVE);
                 updateButtonStates();
             }
         });
@@ -102,7 +102,7 @@ public class Orders_Fragment extends Fragment {
                 tag = TAG_TO_SHIP;
                 break;
             case 2:
-                fragment = new Orders_To_Receive_Fragment();
+                fragment = new Orders_To_Favorite_Fragment();
                 tag = TAG_TO_RECEIVE;
                 break;
             case 3:
@@ -142,7 +142,7 @@ public class Orders_Fragment extends Fragment {
 
         resetButtonState(btnToPay);
         resetButtonState(btnToShip);
-        resetButtonState(btnToReceive);
+        resetButtonState(btnToFavorites );
         resetButtonState(btnCompleted);
 
         Button selectedButton = getSelectedButton();
@@ -155,7 +155,7 @@ public class Orders_Fragment extends Fragment {
         switch (selectedTabIndex) {
             case 0: return btnToPay;
             case 1: return btnToShip;
-            case 2: return btnToReceive;
+            case 2: return btnToFavorites;
             case 3: return btnCompleted;
             default: return btnToPay;
         }
@@ -186,7 +186,7 @@ public class Orders_Fragment extends Fragment {
         super.onDestroyView();
         btnToPay = null;
         btnToShip = null;
-        btnToReceive = null;
+        btnToFavorites = null;
         btnCompleted = null;
         rootView = null;
         currentFragment = null;

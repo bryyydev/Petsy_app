@@ -118,7 +118,7 @@ public class CartCheckout extends AppCompatActivity {
             // User info TextViews (ADD THESE IDs TO YOUR LAYOUT)
             tvUserName = findViewById(R.id.name);
             tvUserPhone = findViewById(R.id.phoneNumber);
-            tvUserAddress = findViewById(R.id.address);
+            tvUserAddress = findViewById(R.id.full_address);
 
             // Payment method cards
             cashOnDeliveryCard = findViewById(R.id.cash_on_delivery_card);
@@ -205,8 +205,6 @@ public class CartCheckout extends AppCompatActivity {
             Toast.makeText(this, "Error loading user information", Toast.LENGTH_SHORT).show();
         }
     }
-
-    // ... (rest of your existing methods remain the same)
 
     private void getIntentData() {
         try {
@@ -542,7 +540,6 @@ public class CartCheckout extends AppCompatActivity {
                 return;
             }
 
-            // Check if user profile is complete before allowing checkout
             if (currentUserEmail != null && !databaseHelper.isProfileComplete(currentUserEmail)) {
                 Toast.makeText(this, "Please complete your profile information first", Toast.LENGTH_LONG).show();
                 return;
@@ -550,23 +547,33 @@ public class CartCheckout extends AppCompatActivity {
 
             Toast.makeText(this, "Processing order with " + selectedPaymentMethod + "...", Toast.LENGTH_SHORT).show();
 
-            Log.d(TAG, "Processing checkout:");
-            Log.d(TAG, "Payment method: " + selectedPaymentMethod);
-            Log.d(TAG, "Items: " + cartItems.length);
-            Log.d(TAG, "Subtotal: " + df.format(subtotal));
-            Log.d(TAG, "Shipping: " + df.format(shippingFee));
-            Log.d(TAG, "Total: " + df.format(total));
-
             if (btnCheckout != null) {
                 btnCheckout.postDelayed(() -> {
                     try {
+                        // Save each cart item as an order
+                        DatabaseHelper.UserInfo userInfo = databaseHelper.getUserByEmail(currentUserEmail);
+                        String customerName = userInfo != null ? userInfo.getFullName() : "Unknown";
+
+                        for (CartItem item : cartItems) {
+                            Product product = item.getProduct();
+                            OrderDataManager.addOrder(
+                                    this,                           // context
+                                    product.getName(),              // product name
+                                    product.getBrand(),             // brand
+                                    product.getPrice(),             // price
+                                    item.getQuantity(),             // quantity
+                                    product.getImageResource(),     // image resource
+                                    selectedPaymentMethod,          // payment method
+                                    customerName                    // customer name
+                            );
+                        }
+
                         Intent resultIntent = new Intent();
                         resultIntent.putExtra("checkout_success", true);
                         resultIntent.putExtra("payment_method", selectedPaymentMethod);
                         resultIntent.putExtra("order_total", total);
 
                         setResult(RESULT_OK, resultIntent);
-
                         Toast.makeText(this, "Order placed successfully!", Toast.LENGTH_LONG).show();
                         finish();
                     } catch (Exception e) {

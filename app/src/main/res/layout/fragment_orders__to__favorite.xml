@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FAFAFA"
-    tools:context=".Orders_To_Receive_Fragment">
+    tools:context=".Orders_To_Favorite_Fragment">
 
     <!-- Content for To Receive tab -->
     <LinearLayout

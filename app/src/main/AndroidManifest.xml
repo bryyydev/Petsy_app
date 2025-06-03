@@ -81,7 +81,12 @@
             android:exported="false" /> <!-- Authentication activities -->
         <activity
             android:name=".Sign_up"
+<<<<<<< HEAD
             android:exported="false" />
+=======
+            android:exported="true" />
+
+>>>>>>> 6efc05a73f282ff7fd0666d760ee44b677a39531
         <activity
             android:name=".Log_in"
             android:exported="false" /> <!-- Details and other activities -->
