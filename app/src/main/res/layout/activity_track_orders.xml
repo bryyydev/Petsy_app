@@ -92,8 +92,8 @@
                     <!-- Product Image -->
                     <ImageView
                         android:id="@+id/product_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:layout_marginEnd="16dp"
                         android:background="#F5F5F5"
                         android:contentDescription="Dog Food Package"
@@ -108,25 +108,22 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <!-- Brand Name -->
-
-                        <!-- Product Name -->
+                        <!-- Product Name (MOVED TO TOP) -->
                         <TextView
                             android:id="@+id/product_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
                             android:text="Cooked Dog Food"
                             android:textColor="#000000"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
-                        <!-- Product Description -->
+                        <!-- Brand Name / Product Description -->
                         <TextView
-                            android:id="@+id/product_description"
+                            android:id="@+id/brand_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="4dp"
                             android:text="Chicken and White Rice, 500 grams"
                             android:textColor="#666666"
                             android:textSize="14sp" />
@@ -153,6 +150,11 @@
                                 android:textColor="@color/black"
                                 android:textSize="12sp" />
 
+
+
+
+
+
                             <ImageView
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
@@ -166,7 +168,6 @@
                     </LinearLayout>
 
                 </LinearLayout>
-
 
             </androidx.cardview.widget.CardView>
 
@@ -268,7 +269,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/send_to_address"
+                                android:id="@+id/address"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
@@ -287,7 +288,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-
                         <!-- Package Icon -->
                         <ImageView
                             android:layout_width="24dp"
@@ -303,7 +303,6 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical">
-
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -324,7 +323,6 @@
 
                         </LinearLayout>
 
-
                     </LinearLayout>
 
                     <View
@@ -333,11 +331,7 @@
                         android:layout_marginTop="6dp"
                         android:background="#002855" />
 
-
                 </LinearLayout>
-
-
-
 
             </androidx.cardview.widget.CardView>
 
@@ -593,7 +587,7 @@
                     android:layout_height="35dp"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="20dp"
-                    android:text="Add Address"
+                    android:text="Back to Home"
                     android:textAllCaps="false"
                     android:textStyle="bold"
                     android:textColor="@color/white"

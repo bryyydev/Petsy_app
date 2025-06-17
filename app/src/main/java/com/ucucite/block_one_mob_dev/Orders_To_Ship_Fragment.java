@@ -1,5 +1,6 @@
 package com.ucucite.block_one_mob_dev;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,10 @@ public class Orders_To_Ship_Fragment extends Fragment {
         public String paymentMethod;
         public String customerName;
         public String orderDate;
+        public String orderID; // Added order ID
+        public String fromAddress; // Added from address
+        public String toAddress; // Added to address
+        public String packageWeight; // Added package weight
 
         public OrderItem(String name, String brand, String price, int qty, int image, String payment, String customer, String date) {
             this.productName = name;
@@ -41,6 +46,36 @@ public class Orders_To_Ship_Fragment extends Fragment {
             this.paymentMethod = payment;
             this.customerName = customer;
             this.orderDate = date;
+            // Generate random order ID or set default values
+            this.orderID = generateOrderID();
+            // Fixed values for all orders
+            this.fromAddress = "402 Bugayong Street Cabugao Molasagul Pangasinan Philippines";
+            this.packageWeight = "500 grams";
+            // Default customer address (this should ideally come from user profile)
+            this.toAddress = "Block 2 Lot 17 Estrella Homes Phase 1 Toolong Kawit Cavite";
+        }
+
+        // Constructor with all parameters
+        public OrderItem(String name, String brand, String price, int qty, int image, String payment,
+                         String customer, String date, String orderID, String fromAddress, String toAddress, String weight) {
+            this.productName = name;
+            this.productBrand = brand;
+            this.productPrice = price;
+            this.quantity = qty;
+            this.imageResource = image;
+            this.paymentMethod = payment;
+            this.customerName = customer;
+            this.orderDate = date;
+            this.orderID = orderID != null ? orderID : generateOrderID();
+            // Fixed values for business
+            this.fromAddress = "402 Bugayong Street Cabugao Molasagul Pangasinan Philippines";
+            this.packageWeight = "500 grams";
+            // Customer address can vary
+            this.toAddress = toAddress != null ? toAddress : "Block 2 Lot 17 Estrella Homes Phase 1 Toolong Kawit Cavite";
+        }
+
+        private String generateOrderID() {
+            return String.valueOf(System.currentTimeMillis() % 10000000000L);
         }
     }
 
@@ -48,7 +83,7 @@ public class Orders_To_Ship_Fragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_orders__to__ship, container, false);
 
-        ordersContainer = view.findViewById(R.id.orders_container); // You'll need to add this ID to your XML
+        ordersContainer = view.findViewById(R.id.orders_container);
         ordersList = new ArrayList<>();
 
         // Load saved orders
@@ -128,8 +163,24 @@ public class Orders_To_Ship_Fragment extends Fragment {
 
         if (trackButton != null) {
             trackButton.setOnClickListener(v -> {
-                Toast.makeText(getContext(), "Tracking order: " + order.productName, Toast.LENGTH_SHORT).show();
-                // Add tracking functionality here
+                // Navigate to Track_Orders activity and pass order data
+                Intent intent = new Intent(getActivity(), Track_Orders.class);
+
+                // Pass order data as extras
+                intent.putExtra("product_name", order.productName);
+                intent.putExtra("product_brand", order.productBrand);
+                intent.putExtra("product_price", order.productPrice);
+                intent.putExtra("product_quantity", order.quantity);
+                intent.putExtra("product_image", order.imageResource);
+                intent.putExtra("order_id", order.orderID);
+                intent.putExtra("from_address", order.fromAddress);
+                intent.putExtra("to_address", order.toAddress);
+                intent.putExtra("package_weight", order.packageWeight);
+                intent.putExtra("customer_name", order.customerName);
+                intent.putExtra("order_date", order.orderDate);
+                intent.putExtra("payment_method", order.paymentMethod);
+
+                startActivity(intent);
             });
         }
 

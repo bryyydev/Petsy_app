@@ -24,9 +24,7 @@
         </activity>
 
         <!-- Payment related activities -->
-        <activity
-            android:name=".add_payment_method"
-            android:exported="false" />
+
 
         <activity
             android:name=".Payment_Methods"
@@ -38,12 +36,14 @@
             android:exported="false" />
 
         <activity
+            android:name=".Track_Orders"
+            android:exported="true" />
+
+        <activity
             android:name=".DetailsCheckout"
             android:exported="false" />
 
-        <activity
-            android:name=".Track_Orders"
-            android:exported="false" />
+
 
         <!-- Address related activities -->
         <activity
