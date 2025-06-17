@@ -1,7 +1,10 @@
 package com.ucucite.block_one_mob_dev;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -14,6 +17,7 @@ public class Details extends AppCompatActivity {
 
     private static final String TAG = "Details";
     private static final int CHECKOUT_REQUEST_CODE = 200;
+    private static final String PREFS_NAME = "FavoritesPrefs";
 
     private Product currentProduct;
     private TextView quantityText;
@@ -21,6 +25,9 @@ public class Details extends AppCompatActivity {
     private TextView productPrice;
     private String basePrice;
     private CartManager cartManager;
+    private ImageView favoriteButton;
+    private boolean isFavorite = false;
+    private SharedPreferences favoritesPrefs;
 
     // User data variables
     private String userEmail;
@@ -32,8 +39,9 @@ public class Details extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        // Initialize cart manager
+        // Initialize cart manager and SharedPreferences
         cartManager = CartManager.getInstance();
+        favoritesPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
         // Get product and user data from intent
         currentProduct = getIntent().getParcelableExtra("product");
@@ -49,12 +57,22 @@ public class Details extends AppCompatActivity {
 
         if (currentProduct != null) {
             Log.d(TAG, "Product loaded: " + currentProduct.getName());
+            // Check if product is already in favorites
+            checkFavoriteStatus();
             setupProductDetails();
             setupClickListeners();
         } else {
             Log.e(TAG, "No product data received");
             Toast.makeText(this, "Error: Product data not available", Toast.LENGTH_SHORT).show();
             finish();
+        }
+    }
+
+    private void checkFavoriteStatus() {
+        if (currentProduct != null) {
+            String favoriteKey = "favorite_" + currentProduct.getName().replaceAll("\\s+", "_");
+            isFavorite = favoritesPrefs.getBoolean(favoriteKey, false);
+            Log.d(TAG, "Product favorite status: " + isFavorite);
         }
     }
 
@@ -68,6 +86,7 @@ public class Details extends AppCompatActivity {
             TextView brandName = findViewById(R.id.brand_name);
             TextView ratingText = findViewById(R.id.rating_text);
             quantityText = findViewById(R.id.quantity_text);
+            favoriteButton = findViewById(R.id.icon_favorite);
 
             // Set product information with null checks
             if (productImage != null) {
@@ -100,6 +119,9 @@ public class Details extends AppCompatActivity {
             if (quantityText != null) {
                 quantityText.setText(String.valueOf(quantity));
             }
+
+            // Set initial favorite button color
+            updateFavoriteButtonColor();
 
             Log.d(TAG, "Product details setup completed");
         } catch (Exception e) {
@@ -156,7 +178,6 @@ public class Details extends AppCompatActivity {
             }
 
             // Favorite button
-            ImageView favoriteButton = findViewById(R.id.icon_favorite);
             if (favoriteButton != null) {
                 favoriteButton.setOnClickListener(v -> toggleFavorite());
             }
@@ -264,18 +285,46 @@ public class Details extends AppCompatActivity {
                 return;
             }
 
-            // TODO: Implement actual favorite functionality with database/preferences
-            Toast.makeText(this, currentProduct.getName() + " added to favorites", Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "Product marked as favorite: " + currentProduct.getName());
+            // Toggle favorite status
+            isFavorite = !isFavorite;
 
-            // You can implement actual favorite logic here:
-            // - Save to SharedPreferences
-            // - Save to database
-            // - Update UI to show favorite state
+            // Save favorite status to SharedPreferences
+            String favoriteKey = "favorite_" + currentProduct.getName().replaceAll("\\s+", "_");
+            SharedPreferences.Editor editor = favoritesPrefs.edit();
+            editor.putBoolean(favoriteKey, isFavorite);
+            editor.apply();
+
+            // Update the heart icon color
+            updateFavoriteButtonColor();
+
+            // Show appropriate message
+            String message = isFavorite ?
+                    currentProduct.getName() + " added to favorites" :
+                    currentProduct.getName() + " removed from favorites";
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
+            Log.d(TAG, "Product favorite status changed: " + currentProduct.getName() + " - " + isFavorite);
 
         } catch (Exception e) {
             Log.e(TAG, "Error toggling favorite: " + e.getMessage(), e);
-            Toast.makeText(this, "Error adding to favorites", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error updating favorites", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void updateFavoriteButtonColor() {
+        try {
+            if (favoriteButton != null) {
+                if (isFavorite) {
+                    // Set heart to solid red when favorited
+                    favoriteButton.setColorFilter(ContextCompat.getColor(this, android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
+                } else {
+                    // Clear color filter for default appearance when not favorited
+                    favoriteButton.clearColorFilter();
+                }
+                Log.d(TAG, "Favorite button color updated. isFavorite: " + isFavorite);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error updating favorite button color: " + e.getMessage(), e);
         }
     }
 
