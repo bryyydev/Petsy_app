@@ -68,7 +68,7 @@ public class Profile_Fragment extends Fragment {
 
         // Set click listener for Personal Information
         personalInfoItem.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), Edit_Info.class);
+            Intent intent = new Intent(getActivity(), Personal_Information.class);
             intent.putExtra("email", email);
             startActivity(intent);
         });

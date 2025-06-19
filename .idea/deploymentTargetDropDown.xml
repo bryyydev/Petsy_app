@@ -2,6 +2,9 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="Personal_Information">
+        <State />
+      </entry>
       <entry key="Sign_up">
         <State />
       </entry>
