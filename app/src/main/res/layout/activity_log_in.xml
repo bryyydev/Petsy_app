@@ -122,7 +122,7 @@
         <Button
             android:id="@+id/btn_log_in"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="42dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/green_button_bg"
             android:text="Log in"
@@ -141,35 +141,65 @@
             android:textSize="15sp"
             android:textStyle="bold" />
 
-        <Button
+        <!-- Google Login -->
+        <LinearLayout
             android:id="@+id/btn_log_in_google"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="42dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/edittext_white"
-            android:drawableStart="@drawable/ic_google"
-            android:drawablePadding="10dp"
-            android:gravity="start|center_vertical"
-            android:paddingStart="40dp"
-            android:text="Log in with Google"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground">
 
-        <Button
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_google"
+                android:layout_marginEnd="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Log in with Google"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical" />
+
+        </LinearLayout>
+
+        <!-- Facebook Login -->
+        <LinearLayout
             android:id="@+id/btn_log_fb"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="42dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/edittext_white"
-            android:drawableStart="@drawable/ic_facebook"
-            android:drawablePadding="10dp"
-            android:gravity="start|center_vertical"
-            android:paddingStart="40dp"
-            android:text="Log in with Facebook"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_facebook"
+                android:layout_marginEnd="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Log in with Facebook"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical" />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/btn_tosign_up"

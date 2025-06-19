@@ -517,6 +517,7 @@
             android:layout_height="45dp"
             android:layout_weight="0.5"
             android:text="Place Order"
+            android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:layout_marginStart="8dp"

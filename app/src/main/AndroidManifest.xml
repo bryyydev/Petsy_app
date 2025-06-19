@@ -13,7 +13,12 @@
         android:theme="@style/Theme.BlockOneMobDev"
         tools:targetApi="31">
 
-        <!-- Main launcher activity - should be your splash screen -->
+        <!-- Bottom sheet for adding card -->
+        <activity
+            android:name=".bottom_sheet_add_card"
+            android:exported="false" />
+
+        <!-- Main launcher activity - splash screen -->
         <activity
             android:name=".Splashscreen_first"
             android:exported="true">
@@ -24,8 +29,9 @@
         </activity>
 
         <!-- Payment related activities -->
-
-
+        <activity
+            android:name=".add_payment_method"
+            android:exported="false" />
         <activity
             android:name=".Payment_Methods"
             android:exported="false" />
@@ -34,26 +40,20 @@
         <activity
             android:name=".CartCheckout"
             android:exported="false" />
-
-        <activity
-            android:name=".Track_Orders"
-            android:exported="true" />
-
         <activity
             android:name=".DetailsCheckout"
             android:exported="false" />
-
-
+        <activity
+            android:name=".Track_Orders"
+            android:exported="false" />
 
         <!-- Address related activities -->
         <activity
             android:name=".add_address"
             android:exported="false" />
-
         <activity
             android:name=".Edit_Address"
             android:exported="false" />
-
         <activity
             android:name=".Shipping_Address"
             android:exported="false" />
@@ -62,7 +62,6 @@
         <activity
             android:name=".nav_bar"
             android:exported="false" />
-
         <activity
             android:name=".MainActivity"
             android:exported="false" />
@@ -71,24 +70,20 @@
         <activity
             android:name=".Swipe"
             android:exported="false" />
-
         <activity
             android:name=".obs_one"
             android:exported="false" />
-
         <activity
             android:name=".obs_two"
             android:exported="false" />
-
         <activity
             android:name=".obs_three"
             android:exported="false" />
 
-        <!-- Splash screen activities -->
+        <!-- Splash screen sequence -->
         <activity
             android:name=".Splashscreen_second"
             android:exported="false" />
-
         <activity
             android:name=".Splashscreen_third"
             android:exported="false" />
@@ -97,7 +92,6 @@
         <activity
             android:name=".Profile_Fragment"
             android:exported="false" />
-
         <activity
             android:name=".Edit_Info"
             android:exported="false" />
@@ -105,8 +99,7 @@
         <!-- Authentication activities -->
         <activity
             android:name=".Sign_up"
-            android:exported="true" />
-
+            android:exported="false" />
         <activity
             android:name=".Log_in"
             android:exported="false" />
@@ -115,12 +108,6 @@
         <activity
             android:name=".Details"
             android:exported="false" />
-
-        <!-- Note: MyPagerAdapter should not be an activity - it should be a class -->
-        <!-- Remove this if MyPagerAdapter is actually a PagerAdapter class -->
-        <!-- <activity
-            android:name=".MyPagerAdapter"
-            android:exported="false" /> -->
 
     </application>
 

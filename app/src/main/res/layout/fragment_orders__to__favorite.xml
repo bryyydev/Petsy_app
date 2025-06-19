@@ -19,14 +19,14 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginBottom="24dp"
-            android:src="@drawable/ic_to_recieve"
+            android:src="@drawable/ic_heart"
             android:contentDescription="No deliveries"
-            app:tint="#CCCCCC" />
+            app:tint="#4CAF50" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No Orders to Receive"
+            android:text="No Favorite Orders "
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -35,19 +35,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="You don't have any orders on the way"
+            android:text="You don't have any favorite orders"
             android:textColor="#666666"
             android:textSize="14sp"
             android:textAlignment="center"
             android:layout_marginBottom="24dp" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Track Orders"
-            android:background="@drawable/button_outline"
-            android:textColor="#4CAF50"
-            android:textAllCaps="false"
-            android:paddingHorizontal="24dp" />
     </LinearLayout>
 </FrameLayout>
