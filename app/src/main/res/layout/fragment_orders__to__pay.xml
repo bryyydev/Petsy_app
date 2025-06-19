@@ -21,7 +21,7 @@
             android:layout_marginBottom="24dp"
             android:contentDescription="No payments pending"
             app:srcCompat="@drawable/ic_payment"
-            app:tint="#4CAF50"
+            app:tint="#339967"
             android:layout_gravity="center_horizontal" />
 
         <TextView
